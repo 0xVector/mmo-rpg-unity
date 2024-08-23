@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
+using System.Runtime.CompilerServices;
+using System.Text.Json;
 using UnityEngine;
 
 using NativeWebSocket;
-using System;
-using System.Runtime.CompilerServices;
 
 public class WebSockets : MonoBehaviour
 {
@@ -21,11 +22,10 @@ public class WebSockets : MonoBehaviour
         websocket.OnClose += (e) => Debug.Log("Connection closed!");
         websocket.OnMessage += (bytes) =>
         {
-            Debug.Log("Message: " + bytes);
-            Debug.Log(bytes);
+            Debug.Log("Message: " + bytes.ToString());
             // getting the message as a string
-            // var message = System.Text.Encoding.UTF8.GetString(bytes);
-            // Debug.Log("OnMessage! " + message);
+            var message = System.Text.Encoding.UTF8.GetString(bytes);
+            Debug.Log("MessageText: " + message);
         };
 
         // Keep sending messages at every 0.3s
@@ -64,7 +64,9 @@ public class WebSockets : MonoBehaviour
             // await websocket.Send(new byte[] { 10, 20, 30 });
 
             // Sending plain text
-            // await websocket.SendText(JsonUtility.ToJson(new { @event = event_name, data }));
+            string m = JsonSerializer.Serialize(new { @event = event_name, data });
+            Debug.Log("Sending: " + m);
+            await websocket.SendText(m);
         }
     }
 
