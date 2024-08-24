@@ -7,13 +7,14 @@ using UnityEngine.U2D.Animation;
 public class PlayerController : MonoBehaviour
 {
     public float speed = 10.0f;
-    public SpriteLibraryAsset[] spriteLibraries;
     public Direction dir = Direction.Down;
-    private Rigidbody2D rb;
-    private SpriteRenderer sprite;
-    private SpriteLibrary spriteLib;
-    private Animator anim;
-    private Vector2 move = new Vector2(0, 0);
+    public SpriteLibraryAsset[] spriteLibraries;
+    Rigidbody2D rb;
+    SpriteRenderer sprite;
+    SpriteLibrary spriteLib;
+    Animator anim;
+    Vector2 move = new Vector2(0, 0);
+
 
     void Awake()
     {
@@ -32,6 +33,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Movement
         float moveX = Input.GetAxis("Horizontal");
         float moveY = Input.GetAxis("Vertical");
         move = new(moveX, moveY);
