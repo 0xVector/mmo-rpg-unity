@@ -1,15 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.U2D.Animation;
 
 public class PlayerController : MonoBehaviour
 {
     public float speed = 10.0f;
+    public SpriteLibraryAsset[] spriteLibraries;
+    public Direction dir = Direction.Down;
     private Rigidbody2D rb;
+    private SpriteRenderer sprite;
+    private SpriteLibrary spriteLib;
+    private Animator anim;
+    private Vector2 move = new Vector2(0, 0);
 
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        sprite = GetComponent<SpriteRenderer>();
+        spriteLib = GetComponent<SpriteLibrary>();
+        anim = GetComponent<Animator>();
     }
 
     // Start is called before the first frame update
@@ -21,17 +32,35 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        float moveX = Input.GetAxis("Horizontal");
+        float moveY = Input.GetAxis("Vertical");
+        move = new(moveX, moveY);
 
+        if (moveX > 0) dir = Direction.Right;
+        else if (moveX < 0) dir = Direction.Left;
+        else if (moveY < 0) dir = Direction.Down;
+        else if (moveY > 0) dir = Direction.Up;
+
+        if (dir == Direction.Left) sprite.flipX = true;
+        else sprite.flipX = false;
+
+        spriteLib.spriteLibraryAsset = spriteLibraries[(int)dir];
     }
 
     void FixedUpdate()
     {
-        float moveX = Input.GetAxis("Horizontal");
-        float moveY = Input.GetAxis("Vertical");
-        Vector2 move = new(moveX, moveY);
+        anim.SetBool("Running", move.magnitude > 0);
 
         move.Normalize();
         move *= speed;
         rb.velocity = move;
     }
+}
+
+public enum Direction
+{
+    Down,
+    Up,
+    Left,
+    Right
 }
