@@ -9,30 +9,41 @@ using NativeWebSocket;
 
 public class WebSockets : MonoBehaviour
 {
-    WebSocket websocket;
+    public string SERVER_ADDRESS = "ws://localhost:3000";
     public string playerName = "Adam";
+    WebSocket websocket;
+    Dictionary<string, Action<string>> eventHandlers;
 
-    // Start is called before the first frame update
-    async void Start()
+    public void bindHandler(string @event, Action<string> handler) { eventHandlers[@event] = handler; }
+
+    public async void SendWebSocketMessage(string event_name, object data)
     {
-        websocket = new WebSocket("ws://localhost:3000");
+        if (websocket.State == WebSocketState.Open)
+        {
+            string m = JsonSerializer.Serialize(new { @event = event_name, data });
+            await websocket.SendText(m);
+        }
+    }
+
+    public async void CloseConnection() { await websocket.Close(); }
+
+    async void Awake()
+    {
+        websocket = new WebSocket(SERVER_ADDRESS);
+        eventHandlers = new Dictionary<string, Action<string>>();
 
         websocket.OnOpen += () => Debug.Log("Connected!");
         websocket.OnError += (e) => Debug.Log("Error! " + e);
         websocket.OnClose += (e) => Debug.Log("Connection closed!");
+
         websocket.OnMessage += (bytes) =>
         {
-            Debug.Log("Message: " + bytes.ToString());
-            // getting the message as a string
-            var message = System.Text.Encoding.UTF8.GetString(bytes);
-            Debug.Log("MessageText: " + message);
+            var rawMessage = System.Text.Encoding.UTF8.GetString(bytes);
+            var message = JsonSerializer.Deserialize<WebSocketMessage>(rawMessage);
+            eventHandlers.TryGetValue(message.@event, out Action<string> handler);
+            if (handler != null) handler(JsonSerializer.Serialize(message.data));  // hacky way to bypass unknown type
         };
 
-        // Keep sending messages at every 0.3s
-        Invoke("Register", 1f);
-        // InvokeRepeating("SendHeartbeat", 2f, 1f);
-
-        // waiting for messages
         Debug.Log("Connecting to the server...");
         await websocket.Connect();
     }
@@ -40,38 +51,16 @@ public class WebSockets : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        #if !UNITY_WEBGL || UNITY_EDITOR
-                websocket.DispatchMessageQueue();
-        #endif
+#if !UNITY_WEBGL || UNITY_EDITOR
+        websocket.DispatchMessageQueue();
+#endif
     }
 
-    void Register()
-    {
-        SendWebSocketMessage("join", new { playerName });
-        Debug.Log("Registering...");
-    }
+    void OnApplicationQuit() { CloseConnection(); }
+}
 
-    void SendHeartbeat()
-    {
-        SendWebSocketMessage("heartbeat", new { id = "ID" });
-    }
-
-    async void SendWebSocketMessage(string event_name, object data)
-    {
-        if (websocket.State == WebSocketState.Open)
-        {
-            // Sending bytes
-            // await websocket.Send(new byte[] { 10, 20, 30 });
-
-            // Sending plain text
-            string m = JsonSerializer.Serialize(new { @event = event_name, data });
-            Debug.Log("Sending: " + m);
-            await websocket.SendText(m);
-        }
-    }
-
-    async void OnApplicationQuit()
-    {
-        await websocket.Close();
-    }
+class WebSocketMessage
+{
+    public string @event { get; set; }
+    public dynamic data { get; set; }
 }
