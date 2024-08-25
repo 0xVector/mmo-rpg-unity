@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,7 +15,7 @@ public class PlayerAttack : MonoBehaviour
     PlayerController playerController;
     float lastAttackAt = 0;
 
-    void OnAwake()
+    void Awake()
     {
         anim = GetComponent<Animator>();
         playerController = GetComponent<PlayerController>();
@@ -35,8 +36,7 @@ public class PlayerAttack : MonoBehaviour
     {
         Direction dir = playerController.dir;
         Transform point = attackPoints[(int)dir];
-        Collider2D[] hits = Physics2D.OverlapCircleAll(point.position, attackRange, attackableLayers);    
-        Debug.Log("Hit:" + hits.Length);
+        Collider2D[] hits = Physics2D.OverlapCircleAll(point.position, attackRange, attackableLayers);
     }
 
 

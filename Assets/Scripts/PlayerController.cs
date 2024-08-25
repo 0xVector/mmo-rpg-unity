@@ -43,8 +43,11 @@ public class PlayerController : MonoBehaviour
         else if (moveY < 0) dir = Direction.Down;
         else if (moveY > 0) dir = Direction.Up;
 
-        if (dir == Direction.Left) sprite.flipX = true;
-        else sprite.flipX = false;
+        if ((dir == Direction.Left && transform.localScale.x > 0) || (dir != Direction.Left && transform.localScale.x < 0)) {
+            Vector3 scale = transform.localScale;
+            scale.x *= -1;
+            transform.localScale = scale;
+        }
 
         spriteLib.spriteLibraryAsset = spriteLibraries[(int)dir];
     }
