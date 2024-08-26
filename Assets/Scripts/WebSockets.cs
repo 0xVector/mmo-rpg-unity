@@ -10,7 +10,6 @@ using NativeWebSocket;
 public class WebSockets : MonoBehaviour
 {
     public string SERVER_ADDRESS = "ws://localhost:3000";
-    public string playerName = "Adam";
     WebSocket websocket;
     Dictionary<string, Action<string>> eventHandlers;
 

@@ -7,8 +7,12 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering.Universal.Internal;
 
+using MessageData;
+using TMPro;
+
 public class GameManager : MonoBehaviour
 {
+    public GameObject[] entityPrefabs;
     Dictionary<string, GameObject> entities;
     WebSockets ws;
 
@@ -55,19 +59,31 @@ public class GameManager : MonoBehaviour
     void EntitySpawn(string rawData)
     {
         var data = JsonSerializer.Deserialize<EntitySpawnData>(rawData, options);
-        Debug.Log($"Spawn {data.entity} {data.id} at ({data.x}, {data.y})");
+        if (entities.ContainsKey(data.id)) return;
+
+        GameObject prefab = entityPrefabs[(int)data.entity];
+        entities[data.id] = Instantiate(prefab, remapCoordinates(data.x, data.y), Quaternion.identity);
+        Debug.Log($"Spawn {data.entity} {data.id} at {remapCoordinates(data.x, data.y)} ({data.x},{data.y})");
     }
 
     void EntityDespawn(string rawData)
     {
         var data = JsonSerializer.Deserialize<EntityDespawnData>(rawData);
+        if (!entities.ContainsKey(data.id)) return;
+
+        Destroy(entities[data.id]);
         Debug.Log($"Despawn {data.id}");
     }
 
     void EntityMove(string rawData)
     {
         var data = JsonSerializer.Deserialize<EntityMoveData>(rawData);
-        Debug.Log($"Move {data.id} to ({data.x},{data.y}) s={data.speed}");
+        if (!entities.ContainsKey(data.id)) return;
+
+        var entity = entities[data.id];
+        entity.TryGetComponent(out Rigidbody2D rb);
+        if (rb != null) rb.MovePosition(remapCoordinates(data.x, data.y));
+        Debug.Log($"Move {data.id} to {remapCoordinates(data.x, data.y)} ({data.x},{data.y}) s={data.speed}");
     }
 
     void PlayerUpdate(string rawData)
@@ -75,40 +91,10 @@ public class GameManager : MonoBehaviour
         var data = JsonSerializer.Deserialize<PlayerUpdateData>(rawData, options);
         Debug.Log($"Update: facing={data.facing} running={data.isRunning} attacking={data.isAttacking} ({data.id})");
     }
-}
 
-enum EntityType
-{
-    Player,
-    Slime
+    static Vector2 remapCoordinates(float x, float y)
+    {
+        float remapCoefficient = 56f;
+        return new Vector2(x/remapCoefficient, y/remapCoefficient);
+    }
 }
-
-abstract class MessageData
-{
-    public string id { get; set; }
-}
-
-
-abstract class PositionedMessageData : MessageData
-{
-    public float x { get; set; }
-    public float y { get; set; }
-}
-
-sealed class HeartbeatData : MessageData { }
-sealed class EntitySpawnData : PositionedMessageData
-{
-    public EntityType entity { get; set; }
-}
-sealed class EntityDespawnData : MessageData { }
-sealed class EntityMoveData : PositionedMessageData
-{
-    public float speed { get; set; }
-}
-sealed class PlayerUpdateData : MessageData
-{
-    public Direction facing { get; set; }
-    public bool isRunning { get; set; }
-    public bool isAttacking { get; set; }
-}
-
