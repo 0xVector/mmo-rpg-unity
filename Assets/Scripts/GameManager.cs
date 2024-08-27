@@ -111,6 +111,11 @@ public class GameManager : MonoBehaviour
     void PlayerUpdate(string rawData)
     {
         var data = JsonSerializer.Deserialize<PlayerUpdateData>(rawData, options);
+        var player = entities[data.id].GetComponent<Player>();
+
+        player.dir = data.facing;
+        player.isRunning = data.isRunning;
+        if (data.isAttacking) player.Attack();
         Debug.Log($"Update: facing={data.facing} running={data.isRunning} attacking={data.isAttacking} ({data.id})");
     }
 }

@@ -7,7 +7,6 @@ public class Player : MonoBehaviour
 {
     public Direction dir = Direction.Down;
     public bool isRunning = false;
-    public bool isAttacking = false;
     public bool isControllable = false;
     public SpriteLibraryAsset[] spriteLibraries;
     SpriteLibrary spriteLib;
@@ -25,6 +24,14 @@ public class Player : MonoBehaviour
     {
         spriteLib.spriteLibraryAsset = spriteLibraries[(int)dir];
         anim.SetBool("Running", isRunning);
+
+        // Horizontal flip
+        if ((dir == Direction.Left && transform.localScale.x > 0) || (dir != Direction.Left && transform.localScale.x < 0))
+        {
+            Vector3 scale = transform.localScale;
+            scale.x *= -1;
+            transform.localScale = scale;
+        }
     }
 
     public void Attack()  // Play attack animation

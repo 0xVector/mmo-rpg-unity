@@ -32,14 +32,6 @@ public class PlayerController : MonoBehaviour
         else if (moveY < 0) dir = Direction.Down;
         else if (moveY > 0) dir = Direction.Up;
         player.dir = dir;
-
-        // Horizontal flip
-        if ((dir == Direction.Left && transform.localScale.x > 0) || (dir != Direction.Left && transform.localScale.x < 0))
-        {
-            Vector3 scale = transform.localScale;
-            scale.x *= -1;
-            transform.localScale = scale;
-        }
     }
 
     void FixedUpdate()
