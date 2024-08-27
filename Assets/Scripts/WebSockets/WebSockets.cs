@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using UnityEngine;
 
 using NativeWebSocket;
@@ -11,6 +12,9 @@ public class WebSockets : MonoBehaviour
     public string SERVER_ADDRESS = "ws://localhost:3000";
     WebSocket websocket;
     Dictionary<string, Action<string>> eventHandlers;
+    GameManager manager;
+    // TODO
+    JsonSerializerOptions options = new JsonSerializerOptions { Converters = { new JsonStringEnumConverter(JsonNamingPolicy.KebabCaseLower) } };
 
     public void bindHandler(string @event, Action<string> handler) { eventHandlers[@event] = handler; }
 
@@ -18,7 +22,7 @@ public class WebSockets : MonoBehaviour
     {
         if (websocket.State == WebSocketState.Open)
         {
-            string m = JsonSerializer.Serialize(new { @event = event_name, data });
+            string m = JsonSerializer.Serialize(new { @event = event_name, data }, options);
             await websocket.SendText(m);
         }
     }
@@ -29,6 +33,7 @@ public class WebSockets : MonoBehaviour
     {
         websocket = new WebSocket(SERVER_ADDRESS);
         eventHandlers = new Dictionary<string, Action<string>>();
+        manager = GetComponent<GameManager>();
 
         websocket.OnOpen += () => Debug.Log("Connected!");
         websocket.OnError += (e) => Debug.Log("Error! " + e);

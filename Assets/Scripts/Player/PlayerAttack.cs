@@ -11,11 +11,13 @@ public class PlayerAttack : MonoBehaviour
     public Transform[] attackPoints;
     public LayerMask attackableLayers;
     Player player;
+    Updater updater;
     float lastAttackAt = 0;
 
     void Awake()
     {
         player = GetComponent<Player>();
+        updater = GetComponent<Updater>();
     }
 
     void Update()
@@ -25,7 +27,8 @@ public class PlayerAttack : MonoBehaviour
         if (atack && Time.time - lastAttackAt >= atackSpeed)
         {
             lastAttackAt = Time.time;
-            player.Attack();
+            player.PlayAttack();
+            updater.sendAttack();
         }
     }
 

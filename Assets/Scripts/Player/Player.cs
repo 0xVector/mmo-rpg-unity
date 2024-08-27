@@ -1,14 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.U2D.Animation;
 
 public class Player : MonoBehaviour
 {
+    public SpriteLibraryAsset[] spriteLibraries;
+    [HideInInspector]
     public Direction dir = Direction.Down;
+    [HideInInspector]
     public bool isRunning = false;
     public bool isControllable = false;
-    public SpriteLibraryAsset[] spriteLibraries;
     SpriteLibrary spriteLib;
     Animator anim;
     PlayerAttack playerAttack;
@@ -34,10 +37,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void Attack()  // Play attack animation
-    {
-        anim.SetTrigger("Attack");
-    }
+    public void PlayAttack() { anim.SetTrigger("Attack"); }
 
     public void OnAttack()  // Animation event
     {

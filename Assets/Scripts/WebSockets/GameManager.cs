@@ -4,15 +4,18 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using UnityEngine;
 
-using MessageData;
-using TMPro;
-using UnityEditor.ShaderGraph;
+using InMessageData;
+using OutJoinData = OutMessageData.JoinData;
+using OutSpawnData = OutMessageData.SpawnData;
+using OutHeartbeatData = OutMessageData.HeartbeatData;
 
 public class GameManager : MonoBehaviour
 {
     public GameObject[] entityPrefabs;
     public GameObject playerPrefab;
-    string id;
+    
+    [HideInInspector]
+    public string id;
     Dictionary<string, GameObject> entities;
     WebSockets ws;
 
@@ -43,13 +46,13 @@ public class GameManager : MonoBehaviour
     void Register()
     {
         Debug.Log("Registering...");
-        ws.SendWSMessage("join", new { playerName = "Tester" });
+        ws.SendWSMessage("join", new OutJoinData { playerName = "Tester" });
     }
 
     void SpawnSelf()
     {
         Debug.Log("Requesting spawn...");
-        ws.SendWSMessage("spawn", new { id });
+        ws.SendWSMessage("spawn", new OutSpawnData { id = id });
     }
 
     void Join(string rawData)
@@ -71,7 +74,8 @@ public class GameManager : MonoBehaviour
     void Heartbeat(string rawData)
     {
         var data = JsonSerializer.Deserialize<HeartbeatData>(rawData);
-        ws.SendWSMessage("heartbeat", new { data.id });
+        if (data.id != id) return;
+        ws.SendWSMessage("heartbeat", new OutHeartbeatData { id = id });
     }
 
     void EntitySpawn(string rawData)
@@ -111,11 +115,14 @@ public class GameManager : MonoBehaviour
     void PlayerUpdate(string rawData)
     {
         var data = JsonSerializer.Deserialize<PlayerUpdateData>(rawData, options);
+        if (!entities.ContainsKey(data.id)) return;
+        if (data.id == id) return;  // Ignore self updates (for now)
+
         var player = entities[data.id].GetComponent<Player>();
 
         player.dir = data.facing;
         player.isRunning = data.isRunning;
-        if (data.isAttacking) player.Attack();
+        if (data.isAttacking) player.PlayAttack();
         Debug.Log($"Update: facing={data.facing} running={data.isRunning} attacking={data.isAttacking} ({data.id})");
     }
 }

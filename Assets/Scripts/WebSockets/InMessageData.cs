@@ -1,4 +1,4 @@
-namespace MessageData
+namespace InMessageData
 {
 
     // The order of the enum values determines the order in the inspector field

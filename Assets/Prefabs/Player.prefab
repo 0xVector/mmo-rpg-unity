@@ -98,7 +98,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1533168500326178794}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -225,12 +225,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bddf38cc0602013e4b2526039029ff30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dir: 0
-  isRunning: 0
-  isAttacking: 0
-  isControllable: 0
   spriteLibraries:
   - {fileID: 7108339969198208228, guid: 1396626df9896dcb1b874e45ed9c8997, type: 3}
   - {fileID: 7108339969198208228, guid: 0cbb74507f55a90649897febf30a17e5, type: 3}
   - {fileID: 7108339969198208228, guid: 1187452ab1c15e0a490de8e1f6ede9a5, type: 3}
   - {fileID: 7108339969198208228, guid: 1187452ab1c15e0a490de8e1f6ede9a5, type: 3}
+  dir: 0
+  isRunning: 0
+  isControllable: 0
