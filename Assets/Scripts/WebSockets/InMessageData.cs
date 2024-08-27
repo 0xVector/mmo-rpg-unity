@@ -31,7 +31,7 @@ namespace InMessageData
     public sealed class EntityDespawnData : MessageData { }
     public sealed class EntityMoveData : PositionedMessageData
     {
-        public float speed { get; set; }
+        public float time { get; set; }
     }
     public sealed class PlayerUpdateData : MessageData
     {

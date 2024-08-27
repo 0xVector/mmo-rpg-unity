@@ -108,8 +108,8 @@ public class GameManager : MonoBehaviour
 
         var entity = entities[data.id];
         entity.TryGetComponent(out Rigidbody2D rb);
-        if (rb != null) rb.MovePosition(new Vector2(data.x, data.y));
-        Debug.Log($"Move {data.id} to {new Vector2(data.x, data.y)} ({data.x},{data.y}) s={data.speed}");
+        if (rb != null) MoveToOverTime(rb, new Vector2(data.x, data.y), data.time);
+        Debug.Log($"Move {data.id} to {new Vector2(data.x, data.y)} ({data.x},{data.y}) t={data.time}");
     }
 
     void PlayerUpdate(string rawData)
@@ -124,5 +124,19 @@ public class GameManager : MonoBehaviour
         player.isRunning = data.isRunning;
         if (data.isAttacking) player.PlayAttack();
         Debug.Log($"Update: facing={data.facing} running={data.isRunning} attacking={data.isAttacking} ({data.id})");
+    }
+
+    static void MoveToOverTime(Rigidbody2D rb, Vector2 to, float time)
+    {
+        if (time == 0)
+        {
+            rb.MovePosition(to);
+            return;
+        }
+        
+        Vector2 from = rb.position;
+        float dist = Vector2.Distance(from, to);
+        float speed = dist / time;
+        rb.velocity = (to - from).normalized * speed;
     }
 }
