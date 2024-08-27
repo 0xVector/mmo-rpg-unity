@@ -62,8 +62,8 @@ public class GameManager : MonoBehaviour
         if (entities.ContainsKey(data.id)) return;
 
         GameObject prefab = entityPrefabs[(int)data.entity];
-        entities[data.id] = Instantiate(prefab, remapCoordinates(data.x, data.y), Quaternion.identity);
-        Debug.Log($"Spawn {data.entity} {data.id} at {remapCoordinates(data.x, data.y)} ({data.x},{data.y})");
+        entities[data.id] = Instantiate(prefab, new Vector2(data.x, data.y), Quaternion.identity);
+        Debug.Log($"Spawn {data.entity} {data.id} at {new Vector2(data.x, data.y)} ({data.x},{data.y})");
     }
 
     void EntityDespawn(string rawData)
@@ -82,19 +82,13 @@ public class GameManager : MonoBehaviour
 
         var entity = entities[data.id];
         entity.TryGetComponent(out Rigidbody2D rb);
-        if (rb != null) rb.MovePosition(remapCoordinates(data.x, data.y));
-        Debug.Log($"Move {data.id} to {remapCoordinates(data.x, data.y)} ({data.x},{data.y}) s={data.speed}");
+        if (rb != null) rb.MovePosition(new Vector2(data.x, data.y));
+        Debug.Log($"Move {data.id} to {new Vector2(data.x, data.y)} ({data.x},{data.y}) s={data.speed}");
     }
 
     void PlayerUpdate(string rawData)
     {
         var data = JsonSerializer.Deserialize<PlayerUpdateData>(rawData, options);
         Debug.Log($"Update: facing={data.facing} running={data.isRunning} attacking={data.isAttacking} ({data.id})");
-    }
-
-    static Vector2 remapCoordinates(float x, float y)
-    {
-        float remapCoefficient = 56f;
-        return new Vector2(x/remapCoefficient, y/remapCoefficient);
     }
 }
