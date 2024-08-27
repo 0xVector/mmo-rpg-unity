@@ -2,17 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using JetBrains.Annotations;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Rendering.Universal.Internal;
 
 using MessageData;
 using TMPro;
+using UnityEditor.ShaderGraph;
 
 public class GameManager : MonoBehaviour
 {
     public GameObject[] entityPrefabs;
+    public GameObject playerPrefab;
+    string id;
     Dictionary<string, GameObject> entities;
     WebSockets ws;
 
@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         // Bind handlers
+        ws.bindHandler("join", Join);
         ws.bindHandler("leave", Leave);
         ws.bindHandler("heartbeat", Heartbeat);
         ws.bindHandler("entity-spawn", EntitySpawn);
@@ -34,18 +35,35 @@ public class GameManager : MonoBehaviour
         ws.bindHandler("entity-move", EntityMove);
         ws.bindHandler("player-update", PlayerUpdate);
 
-        // Start by joining
-        Invoke("Join", 1f);
+        // Start by registering
+        Invoke("Register", 1f);
+        Invoke("SpawnSelf", 2f);
     }
 
-    void Join()
+    void Register()
     {
         Debug.Log("Registering...");
-        ws.SendWebSocketMessage("join", new { playerName = "Tester" });
+        ws.SendWSMessage("join", new { playerName = "Tester" });
+    }
+
+    void SpawnSelf()
+    {
+        Debug.Log("Requesting spawn...");
+        ws.SendWSMessage("spawn", new { id });
+    }
+
+    void Join(string rawData)
+    {
+        var data = JsonSerializer.Deserialize<JoinData>(rawData);
+        id = data.id;
+        Debug.Log($"Registered with id: {id}");
     }
 
     void Leave(string rawData)
     {
+        var data = JsonSerializer.Deserialize<LeaveData>(rawData);
+        if (data.id != id) return;
+
         Debug.Log("Kicked by the server.");
         ws.CloseConnection();
     }
@@ -53,7 +71,7 @@ public class GameManager : MonoBehaviour
     void Heartbeat(string rawData)
     {
         var data = JsonSerializer.Deserialize<HeartbeatData>(rawData);
-        ws.SendWebSocketMessage("heartbeat", new { data.id });
+        ws.SendWSMessage("heartbeat", new { data.id });
     }
 
     void EntitySpawn(string rawData)
@@ -62,6 +80,10 @@ public class GameManager : MonoBehaviour
         if (entities.ContainsKey(data.id)) return;
 
         GameObject prefab = entityPrefabs[(int)data.entity];
+
+        // Own player spawn
+        if (data.id == id && data.entity == EntityType.Player) prefab = playerPrefab;
+
         entities[data.id] = Instantiate(prefab, new Vector2(data.x, data.y), Quaternion.identity);
         Debug.Log($"Spawn {data.entity} {data.id} at {new Vector2(data.x, data.y)} ({data.x},{data.y})");
     }

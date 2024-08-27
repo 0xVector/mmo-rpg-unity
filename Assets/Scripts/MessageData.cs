@@ -20,6 +20,9 @@ namespace MessageData
         public float y { get; set; }
     }
 
+    public sealed class JoinData : MessageData {}
+    public sealed class LeaveData : MessageData {}
+
     public sealed class HeartbeatData : MessageData { }
     public sealed class EntitySpawnData : PositionedMessageData
     {

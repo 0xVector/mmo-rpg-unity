@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System;
-using System.Runtime.CompilerServices;
 using System.Text.Json;
 using UnityEngine;
 
@@ -15,7 +14,7 @@ public class WebSockets : MonoBehaviour
 
     public void bindHandler(string @event, Action<string> handler) { eventHandlers[@event] = handler; }
 
-    public async void SendWebSocketMessage(string event_name, object data)
+    public async void SendWSMessage(string event_name, object data)
     {
         if (websocket.State == WebSocketState.Open)
         {

@@ -10,15 +10,12 @@ public class PlayerAttack : MonoBehaviour
     public float attackRange = 0.5f;
     public Transform[] attackPoints;
     public LayerMask attackableLayers;
-
-    Animator anim;
-    PlayerController playerController;
+    Player player;
     float lastAttackAt = 0;
 
     void Awake()
     {
-        anim = GetComponent<Animator>();
-        playerController = GetComponent<PlayerController>();
+        player = GetComponent<Player>();
     }
 
     void Update()
@@ -28,13 +25,13 @@ public class PlayerAttack : MonoBehaviour
         if (atack && Time.time - lastAttackAt >= atackSpeed)
         {
             lastAttackAt = Time.time;
-            anim.SetTrigger("Attack");
+            player.Attack();
         }
     }
 
-    public void AttackEvent()
+    public void ProcessAttack()
     {
-        Direction dir = playerController.dir;
+        Direction dir = player.dir;
         Transform point = attackPoints[(int)dir];
         Collider2D[] hits = Physics2D.OverlapCircleAll(point.position, attackRange, attackableLayers);
     }
