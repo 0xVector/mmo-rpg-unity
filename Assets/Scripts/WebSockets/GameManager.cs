@@ -105,6 +105,7 @@ public class GameManager : MonoBehaviour
     {
         var data = JsonSerializer.Deserialize<EntityMoveData>(rawData);
         if (!entities.ContainsKey(data.id)) return;
+        if (data.id == id) return;  // Ignore self updates (for now)
 
         var entity = entities[data.id];
         entity.TryGetComponent(out Rigidbody2D rb);
