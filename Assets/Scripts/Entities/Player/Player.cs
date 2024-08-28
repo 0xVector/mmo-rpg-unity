@@ -7,20 +7,21 @@ using UnityEngine.U2D.Animation;
 public class Player : MonoBehaviour
 {
     public SpriteLibraryAsset[] spriteLibraries;
-    [HideInInspector]
-    public Direction dir = Direction.Down;
-    [HideInInspector]
-    public bool isRunning = false;
+    [HideInInspector] public Direction dir = Direction.Down;
+    [HideInInspector] public bool isRunning = false;
     public bool isControllable = false;
+    [HideInInspector] public bool isDead = false;
     SpriteLibrary spriteLib;
     Animator anim;
-    PlayerAttack playerAttack;
+    PlayerController controller;
+    PlayerAttack attack;
 
     void Awake()
     {
         spriteLib = GetComponent<SpriteLibrary>();
         anim = GetComponent<Animator>();
-        if (isControllable) playerAttack = GetComponent<PlayerAttack>();
+        if (isControllable) controller = GetComponent<PlayerController>();
+        if (isControllable) attack = GetComponent<PlayerAttack>();
     }
 
     void Update()
@@ -41,7 +42,25 @@ public class Player : MonoBehaviour
 
     public void OnAttack()  // Animation event
     {
-        if (isControllable) playerAttack.ProcessAttack();
+        if (isControllable) attack.ProcessAttack();
+    }
+
+    public void PlayDeath()
+    {
+        anim.SetTrigger("Die");
+        isDead = true;
+        DisableControl();
+    }
+    public void OnDeathFinished()
+    {
+        Destroy(gameObject);
+    }
+
+    void DisableControl()
+    {
+        if (!isControllable) return;
+        attack.enabled = false;
+        controller.enabled = false;
     }
 }
 

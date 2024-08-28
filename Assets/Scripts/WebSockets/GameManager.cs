@@ -13,9 +13,7 @@ public class GameManager : MonoBehaviour
 {
     public GameObject[] entityPrefabs;
     public GameObject playerPrefab;
-    
-    [HideInInspector]
-    public string id;
+    [HideInInspector] public string id;
     Dictionary<string, GameObject> entities;
     WebSockets ws;
 
@@ -125,6 +123,17 @@ public class GameManager : MonoBehaviour
         player.isRunning = data.isRunning;
         if (data.isAttacking) player.PlayAttack();
         Debug.Log($"Update: facing={data.facing} running={data.isRunning} attacking={data.isAttacking} ({data.id})");
+    }
+
+    void EntityDeath(string rawData)
+    {
+        var data = JsonSerializer.Deserialize<EntityDeathData>(rawData);
+        if (!entities.ContainsKey(data.id)) return;
+
+        var entity = entities[data.id];
+        entity.TryGetComponent(out Player player);
+        if (player != null) player.PlayDeath();
+        Debug.Log($"Death {data.id}");
     }
 
     static void MoveToOverTime(Rigidbody2D rb, Vector2 to, float time)
