@@ -39,4 +39,6 @@ namespace InMessageData
         public bool isRunning { get; set; }
         public bool isAttacking { get; set; }
     }
+
+    public sealed class EntityDeathData : MessageData { }
 }

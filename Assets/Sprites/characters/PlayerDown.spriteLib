@@ -111,6 +111,27 @@ MonoBehaviour:
       m_SpriteOverride: {fileID: 552875277, guid: da03a06e35da8389ab07b5158d1c5c00, type: 3}
     m_FromMain: 0
     m_EntryOverrideCount: 4
+  - m_Name: die
+    m_Hash: 964231127
+    m_CategoryList: []
+    m_OverrideEntries:
+    - m_Name: player_48
+      m_Hash: 875481881
+      m_Sprite: {fileID: 2019621671, guid: da03a06e35da8389ab07b5158d1c5c00, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 2019621671, guid: da03a06e35da8389ab07b5158d1c5c00, type: 3}
+    - m_Name: player_49
+      m_Hash: 53083023
+      m_Sprite: {fileID: 1989794222, guid: da03a06e35da8389ab07b5158d1c5c00, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 1989794222, guid: da03a06e35da8389ab07b5158d1c5c00, type: 3}
+    - m_Name: player_50
+      m_Hash: 602829418
+      m_Sprite: {fileID: -552740570, guid: da03a06e35da8389ab07b5158d1c5c00, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -552740570, guid: da03a06e35da8389ab07b5158d1c5c00, type: 3}
+    m_FromMain: 0
+    m_EntryOverrideCount: 3
   m_PrimaryLibraryGUID: 
-  m_ModificationHash: 638601231067398380
+  m_ModificationHash: 638604352313027500
   m_Version: 1
