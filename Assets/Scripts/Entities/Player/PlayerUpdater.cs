@@ -4,7 +4,9 @@ using UnityEngine;
 
 using OutMessageData;
 
-public class Updater : MonoBehaviour
+[RequireComponent(typeof(Player))]
+[RequireComponent(typeof(PlayerAttack))]
+public class PlayerUpdater : MonoBehaviour
 {
     Player player;
     WebSockets ws;
@@ -24,6 +26,16 @@ public class Updater : MonoBehaviour
         lastFacing = Direction.Down;
         lastPosition = transform.position;
         lastIsRunning = false;
+    }
+
+    void OnEnable()
+    {
+        GetComponent<PlayerAttack>().onAttack += sendAttack;
+    }
+
+    void OnDisable()
+    {
+        GetComponent<PlayerAttack>().onAttack -= sendAttack;
     }
 
     void Update()

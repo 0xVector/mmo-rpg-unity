@@ -106,8 +106,10 @@ public class GameManager : MonoBehaviour
         if (data.id == id) return;  // Ignore self updates (for now)
 
         var entity = entities[data.id];
-        entity.TryGetComponent(out Rigidbody2D rb);
-        if (rb != null) MoveToOverTime(rb, new Vector2(data.x, data.y), data.time);
+        entity.TryGetComponent(out IMovable movable);
+        if (movable == null) return;
+
+        movable.MoveToOverTime(new Vector2(data.x, data.y), data.time);
         Debug.Log($"Move {data.id} to {new Vector2(data.x, data.y)} ({data.x},{data.y}) t={data.time}");
     }
 
@@ -131,22 +133,10 @@ public class GameManager : MonoBehaviour
         if (!entities.ContainsKey(data.id)) return;
 
         var entity = entities[data.id];
-        entity.TryGetComponent(out Player player);
-        if (player != null) player.PlayDeath();
-        Debug.Log($"Death {data.id}");
-    }
+        entity.TryGetComponent(out IDamageable damageable);
+        if (damageable == null) return;
 
-    static void MoveToOverTime(Rigidbody2D rb, Vector2 to, float time)
-    {
-        if (time == 0)
-        {
-            rb.MovePosition(to);
-            return;
-        }
-        
-        Vector2 from = rb.position;
-        float dist = Vector2.Distance(from, to);
-        float speed = dist / time;
-        rb.velocity = (to - from).normalized * speed;
+        damageable.Kill();
+        Debug.Log($"Death {data.id}");
     }
 }

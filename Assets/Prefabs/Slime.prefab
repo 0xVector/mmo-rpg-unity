@@ -15,6 +15,8 @@ GameObject:
   - component: {fileID: 4617335434468409954}
   - component: {fileID: 8854666848936130788}
   - component: {fileID: 2857427220900256559}
+  - component: {fileID: 4900228809223400409}
+  - component: {fileID: 5932143291827443294}
   m_Layer: 8
   m_Name: Slime
   m_TagString: Hittable
@@ -100,7 +102,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.16, y: 0.12}
+    oldSize: {x: 0.18, y: 0.06}
     newSize: {x: 0.16, y: 0.12}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -150,7 +152,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1192463924, guid: 62b325117a1f4e8659b25382ed487386, type: 3}
+  m_Sprite: {fileID: 592989881, guid: 62b325117a1f4e8659b25382ed487386, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -212,3 +214,29 @@ MonoBehaviour:
   m_labelHash: 0.00001255259
   m_SpriteKey: 0
   m_SpriteHash: 355791802
+--- !u!114 &4900228809223400409
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7027292429938545749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5d67df225c22bdea84fa55f738f7572, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 2
+  health: 0
+--- !u!114 &5932143291827443294
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7027292429938545749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff2ee0dee063c2fb7a930619091fd7bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

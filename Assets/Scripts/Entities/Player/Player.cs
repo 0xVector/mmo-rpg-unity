@@ -1,27 +1,39 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.U2D.Animation;
 
+[RequireComponent(typeof(SpriteLibrary))]
+[RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(Health))]
 public class Player : MonoBehaviour
 {
     public SpriteLibraryAsset[] spriteLibraries;
+    public bool isControllable = false;
     [HideInInspector] public Direction dir = Direction.Down;
     [HideInInspector] public bool isRunning = false;
-    public bool isControllable = false;
-    [HideInInspector] public bool isDead = false;
+    public Action onAttackAnimationHit;
     SpriteLibrary spriteLib;
     Animator anim;
-    PlayerController controller;
-    PlayerAttack attack;
+    Health health;
 
     void Awake()
     {
         spriteLib = GetComponent<SpriteLibrary>();
         anim = GetComponent<Animator>();
-        if (isControllable) controller = GetComponent<PlayerController>();
-        if (isControllable) attack = GetComponent<PlayerAttack>();
+        health = GetComponent<Health>();
+    }
+
+    void OnEnable()
+    {
+        health.onDeath += PlayDeath;
+    }
+
+    void OnDisable()
+    {
+        health.onDeath -= PlayDeath;
     }
 
     void Update()
@@ -40,27 +52,16 @@ public class Player : MonoBehaviour
 
     public void PlayAttack() { anim.SetTrigger("Attack"); }
 
-    public void OnAttack()  // Animation event
+    public void OnAttackAnimationHit()  // Animation event
     {
-        if (isControllable) attack.ProcessAttack();
+        onAttackAnimationHit?.Invoke();
+        // if (isControllable) attack.ProcessAttack();
     }
 
-    public void PlayDeath()
-    {
-        anim.SetTrigger("Die");
-        isDead = true;
-        DisableControl();
-    }
+    public void PlayDeath() { anim.SetTrigger("Die"); }
     public void OnDeathFinished()
     {
         Destroy(gameObject);
-    }
-
-    void DisableControl()
-    {
-        if (!isControllable) return;
-        attack.enabled = false;
-        controller.enabled = false;
     }
 }
 

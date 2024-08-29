@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 8892867102570826406}
   - component: {fileID: 4350138446581571435}
   - component: {fileID: 3883032205299980759}
+  - component: {fileID: 879386852070997113}
   - component: {fileID: 8927796255498428178}
   m_Layer: 10
   m_Name: Player
@@ -213,6 +214,20 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &879386852070997113
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1533168500326178794}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5d67df225c22bdea84fa55f738f7572, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 1
+  health: 0
 --- !u!114 &8927796255498428178
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -230,6 +245,6 @@ MonoBehaviour:
   - {fileID: 7108339969198208228, guid: 0cbb74507f55a90649897febf30a17e5, type: 3}
   - {fileID: 7108339969198208228, guid: 1187452ab1c15e0a490de8e1f6ede9a5, type: 3}
   - {fileID: 7108339969198208228, guid: 1187452ab1c15e0a490de8e1f6ede9a5, type: 3}
+  isControllable: 0
   dir: 0
   isRunning: 0
-  isControllable: 0
