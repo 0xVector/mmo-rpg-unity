@@ -3,16 +3,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Player))]
 public class PlayerAttack : MonoBehaviour
 {
 
-    public float atackSpeed = 0.5f;
+    public float atackCooldown = 0.5f;
     public float attackRange = 0.5f;
     public Transform[] attackPoints;
     public LayerMask attackableLayers;
     public Action onAttack;
-    Player player;
     float lastAttackAt = 0;
+    Player player;
 
     void Awake()
     {
@@ -21,30 +22,27 @@ public class PlayerAttack : MonoBehaviour
 
     void OnEnable()
     {
-        player.onAttackAnimationHit += ProcessAttack;
+        player.onAttackHit += ProcessAttack;
     }
 
     void OnDisable()
     {
-        player.onAttackAnimationHit -= ProcessAttack;
+        player.onAttackHit -= ProcessAttack;
     }
 
     void Update()
     {
         // Atack
-        bool atack = Input.GetButtonDown("Fire1");
-        if (atack && Time.time - lastAttackAt >= atackSpeed)
-        {
+        bool attack = Input.GetButtonDown("Fire1");
+        if (attack && Time.time - lastAttackAt >= atackCooldown) {
             lastAttackAt = Time.time;
-            DoAttack();
+            Attack();
         }
     }
 
-    void DoAttack()
-    {
-        player.PlayAttack();
-        onAttack?.Invoke();
-    }
+    void Attack() { 
+        player.Attack();
+        onAttack?.Invoke(); }
 
     public void ProcessAttack()
     {

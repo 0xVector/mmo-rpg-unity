@@ -1,27 +1,11 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Animator))]
-[RequireComponent(typeof(Health))]
-public class Slime : MonoBehaviour
+public class Slime : Entity
 {
-    Animator anim;
-    Health health;
-    void Awake()
-    {
-        anim = GetComponent<Animator>();
-        health = GetComponent<Health>();
+    void Update() {
+        // Client-side rotation
+        float x = rb.velocity.x;
+        if (x > 0) dir = Direction.Right;
+        else if (x < 0) dir = Direction.Left;
     }
-
-    void OnEnable()
-    {
-        health.onDeath += PlayDeath;
-    }
-
-    void OnDisable()
-    {
-        health.onDeath -= PlayDeath;
-    }
-
-    public void PlayDeath() { anim.SetTrigger("Die"); }
-    public void OnDeathFinished() { Destroy(gameObject); }
 }

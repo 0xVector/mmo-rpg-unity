@@ -122,8 +122,10 @@ public class GameManager : MonoBehaviour
         var player = entities[data.id].GetComponent<Player>();
 
         player.dir = data.facing;
-        player.isRunning = data.isRunning;
-        if (data.isAttacking) player.PlayAttack();
+        player.isMoving = data.isRunning;
+
+        player.TryGetComponent(out ICanAttack attack);
+        if (data.isAttacking && attack != null) attack.Attack();
         Debug.Log($"Update: facing={data.facing} running={data.isRunning} attacking={data.isAttacking} ({data.id})");
     }
 

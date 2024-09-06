@@ -13,7 +13,7 @@ public class PlayerUpdater : MonoBehaviour
     string id;
     Direction lastFacing;
     Vector2 lastPosition;
-    bool lastIsRunning;
+    bool lastIsMoving;
 
     void Awake()
     {
@@ -25,7 +25,7 @@ public class PlayerUpdater : MonoBehaviour
 
         lastFacing = Direction.Down;
         lastPosition = transform.position;
-        lastIsRunning = false;
+        lastIsMoving = false;
     }
 
     void OnEnable()
@@ -63,9 +63,9 @@ public class PlayerUpdater : MonoBehaviour
             change = true;
         }
 
-        if (player.isRunning != lastIsRunning)
+        if (player.isMoving != lastIsMoving)
         {
-            lastIsRunning = player.isRunning;
+            lastIsMoving = player.isMoving;
             change = true;
         }
 
@@ -73,7 +73,7 @@ public class PlayerUpdater : MonoBehaviour
         {
             id = id,
             facing = player.dir,
-            isRunning = player.isRunning,
+            isRunning = player.isMoving,
             isAttacking = false
         });
     }
@@ -84,7 +84,7 @@ public class PlayerUpdater : MonoBehaviour
         {
             id = id,
             facing = player.dir,
-            isRunning = player.isRunning,
+            isRunning = player.isMoving,
             isAttacking = true
         });
     }
