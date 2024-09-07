@@ -34,11 +34,13 @@ public class PlayerUpdater : MonoBehaviour
     void OnEnable()
     {
         GetComponent<PlayerAttack>().onAttack += sendAttack;
+        GetComponent<PlayerAttack>().onHit += sendHit;
     }
 
     void OnDisable()
     {
         GetComponent<PlayerAttack>().onAttack -= sendAttack;
+        GetComponent<PlayerAttack>().onHit -= sendHit;
     }
 
     void Update()
@@ -89,6 +91,11 @@ public class PlayerUpdater : MonoBehaviour
 
     public void sendAttack()
     {
-        ws.SendWSMessage("attack", new AttackData { id = id, });
+        ws.SendWSMessage("attack", new AttackData { id = id });
+    }
+
+    public void sendHit(Entity entity)
+    {
+        ws.SendWSMessage("hit", new HitData { id = id, targetId = entity.netId });
     }
 }

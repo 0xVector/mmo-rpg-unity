@@ -12,6 +12,7 @@ public class PlayerAttack : MonoBehaviour
     public Transform[] attackPoints;
     public LayerMask attackableLayers;
     public Action onAttack;
+    public Action<Entity> onHit;
     float lastAttackAt = 0;
     Player player;
 
@@ -49,6 +50,13 @@ public class PlayerAttack : MonoBehaviour
         Direction dir = player.dir;
         Transform point = attackPoints[(int)dir];
         Collider2D[] hits = Physics2D.OverlapCircleAll(point.position, attackRange, attackableLayers);
+        foreach (var hit in hits)
+        {
+            Entity entity = hit.GetComponent<Entity>();
+            if (entity == null) continue;  // Ignore non-entities
+            onHit?.Invoke(entity);
+        }
+        Debug.Log($"Attack hits: {hits.Length}");
     }
 
     void OnDrawGizmosSelected()

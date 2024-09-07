@@ -8,6 +8,7 @@ using UnityEngine.U2D.Animation;
 public abstract class Entity : MonoBehaviour, IMovable, ICanAttack
 {
     public SpriteLibraryAsset[] spriteLibraries;
+    [HideInInspector] public string netId;
     [HideInInspector] public Direction dir = Direction.Down;
     [HideInInspector] public bool isMoving = false;
     [HideInInspector] public bool isDashing = false;
