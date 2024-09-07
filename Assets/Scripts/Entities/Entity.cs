@@ -34,7 +34,7 @@ public abstract class Entity : MonoBehaviour, IMovable, ICanAttack
         if (health) health.onDeath -= Death;
     }
 
-    void Update()
+    protected virtual void Update()
     {
         spriteLib.spriteLibraryAsset = spriteLibraries[(int)dir];
         anim.SetBool("Moving", isMoving);

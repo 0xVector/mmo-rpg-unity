@@ -240,6 +240,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff2ee0dee063c2fb7a930619091fd7bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spriteLibraries: []
+  spriteLibraries:
+  - {fileID: 7108339969198208228, guid: 36e36c546e5aa813395e1ce9ae6f003a, type: 3}
+  - {fileID: 7108339969198208228, guid: 36e36c546e5aa813395e1ce9ae6f003a, type: 3}
+  - {fileID: 7108339969198208228, guid: 36e36c546e5aa813395e1ce9ae6f003a, type: 3}
+  - {fileID: 7108339969198208228, guid: 36e36c546e5aa813395e1ce9ae6f003a, type: 3}
   dir: 0
   isMoving: 0
