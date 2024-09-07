@@ -7,6 +7,7 @@ using UnityEngine;
 public class Movement : MonoBehaviour
 {
     public float speed = 10.0f;
+    public float dashSpeed = 20.0f;
     Entity entity;
     Rigidbody2D rb;
     Vector2 move = new Vector2(0, 0);
@@ -32,12 +33,15 @@ public class Movement : MonoBehaviour
         else if (moveY < 0) dir = Direction.Down;
         else if (moveY > 0) dir = Direction.Up;
         entity.dir = dir;
+
+        // Dash
+        entity.isDashing = Input.GetButton("Dash");
     }
 
     void FixedUpdate()
     {
         move.Normalize();
-        move *= speed;
+        move *= entity.isDashing ? dashSpeed : speed;
         rb.velocity = move;
     }
 }
