@@ -20,8 +20,8 @@ namespace InMessageData
         public float y { get; set; }
     }
 
-    public sealed class JoinData : MessageData {}
-    public sealed class LeaveData : MessageData {}
+    public sealed class JoinData : MessageData { }
+    public sealed class LeaveData : MessageData { }
 
     public sealed class HeartbeatData : MessageData { }
     public sealed class EntitySpawnData : PositionedMessageData
@@ -33,12 +33,13 @@ namespace InMessageData
     {
         public float time { get; set; }
     }
-    public sealed class PlayerUpdateData : MessageData
+    public sealed class EntityUpdateData : MessageData
     {
-        public Direction facing { get; set; }
-        public bool isRunning { get; set; }
-        public bool isAttacking { get; set; }
+        public Direction dir { get; set; }
+        public bool isMoving { get; set; }
+        public bool isDashing { get; set; }
     }
 
+    public sealed class EntityAttackData : MessageData { }
     public sealed class EntityDeathData : MessageData { }
 }

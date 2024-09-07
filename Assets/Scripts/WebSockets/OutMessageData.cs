@@ -22,12 +22,13 @@ namespace OutMessageData
 
     public sealed class UpdateData : MessageData
     {
-        public Direction facing { get; set; }
-        public bool isRunning { get; set; }
-        public bool isAttacking { get; set; }
+        public Direction dir { get; set; }
+        public bool isMoving { get; set; }
+        public bool isDashing { get; set; }
     }
 
-    public sealed class AttackData : MessageData
+    public sealed class AttackData : MessageData { }
+    public sealed class HitData : MessageData
     {
         public string targetId { get; set; }
     }

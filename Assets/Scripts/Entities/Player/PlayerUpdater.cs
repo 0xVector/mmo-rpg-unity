@@ -8,24 +8,27 @@ using OutMessageData;
 [RequireComponent(typeof(PlayerAttack))]
 public class PlayerUpdater : MonoBehaviour
 {
-    Player player;
-    WebSockets ws;
     string id;
-    Direction lastFacing;
+    Direction lastDir;
     Vector2 lastPosition;
     bool lastIsMoving;
+    bool lastDashing;
+
+    Player player;
+    WebSockets ws;
 
     void Awake()
     {
         player = GetComponent<Player>();
-        
+
         GameObject manager = GameObject.Find("Manager");
         ws = manager.GetComponent<WebSockets>();
         id = manager.GetComponent<GameManager>().id;
 
-        lastFacing = Direction.Down;
+        lastDir = Direction.Down;
         lastPosition = transform.position;
         lastIsMoving = false;
+        lastDashing = false;
     }
 
     void OnEnable()
@@ -57,9 +60,9 @@ public class PlayerUpdater : MonoBehaviour
     void updateState()
     {
         bool change = false;
-        if (player.dir != lastFacing)
+        if (player.dir != lastDir)
         {
-            lastFacing = player.dir;
+            lastDir = player.dir;
             change = true;
         }
 
@@ -69,23 +72,23 @@ public class PlayerUpdater : MonoBehaviour
             change = true;
         }
 
+        if (player.isDashing != lastDashing)
+        {
+            lastDashing = player.isDashing;
+            change = true;
+        }
+
         if (change) ws.SendWSMessage("update", new UpdateData
         {
             id = id,
-            facing = player.dir,
-            isRunning = player.isMoving,
-            isAttacking = false
+            dir = player.dir,
+            isMoving = player.isMoving,
+            isDashing = player.isDashing
         });
     }
 
     public void sendAttack()
     {
-        ws.SendWSMessage("update", new UpdateData
-        {
-            id = id,
-            facing = player.dir,
-            isRunning = player.isMoving,
-            isAttacking = true
-        });
+        ws.SendWSMessage("attack", new AttackData { id = id, });
     }
 }

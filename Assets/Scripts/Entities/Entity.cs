@@ -10,6 +10,7 @@ public abstract class Entity : MonoBehaviour, IMovable, ICanAttack
     public SpriteLibraryAsset[] spriteLibraries;
     [HideInInspector] public Direction dir = Direction.Down;
     [HideInInspector] public bool isMoving = false;
+    [HideInInspector] public bool isDashing = false;
     public event Action onAttackHit;
     protected SpriteLibrary spriteLib;
     protected Animator anim;

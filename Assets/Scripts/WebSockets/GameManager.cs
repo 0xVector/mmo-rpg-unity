@@ -34,7 +34,8 @@ public class GameManager : MonoBehaviour
         ws.bindHandler("entity-spawn", EntitySpawn);
         ws.bindHandler("entity-despawn", EntityDespawn);
         ws.bindHandler("entity-move", EntityMove);
-        ws.bindHandler("player-update", PlayerUpdate);
+        ws.bindHandler("entity-update", EntityUpdate);
+        ws.bindHandler("entity-attack", EntityAttack);
 
         // Start by registering
         Invoke("Register", 1f);
@@ -113,20 +114,32 @@ public class GameManager : MonoBehaviour
         Debug.Log($"Move {data.id} to {new Vector2(data.x, data.y)} ({data.x},{data.y}) t={data.time}");
     }
 
-    void PlayerUpdate(string rawData)
+    void EntityUpdate(string rawData)
     {
-        var data = JsonSerializer.Deserialize<PlayerUpdateData>(rawData, options);
+        var data = JsonSerializer.Deserialize<EntityUpdateData>(rawData, options);
         if (!entities.ContainsKey(data.id)) return;
         if (data.id == id) return;  // Ignore self updates (for now)
 
-        var player = entities[data.id].GetComponent<Player>();
+        var entity = entities[data.id].GetComponent<Entity>();
 
-        player.dir = data.facing;
-        player.isMoving = data.isRunning;
+        entity.dir = data.dir;
+        entity.isMoving = data.isMoving;
+        entity.isDashing = data.isDashing;
+        Debug.Log($"Update: facing={data.dir} moving={data.isMoving} dashing={data.isDashing} ({data.id})");
+    }
 
-        player.TryGetComponent(out ICanAttack attack);
-        if (data.isAttacking && attack != null) attack.Attack();
-        Debug.Log($"Update: facing={data.facing} running={data.isRunning} attacking={data.isAttacking} ({data.id})");
+    void EntityAttack(string rawData)
+    {
+        var data = JsonSerializer.Deserialize<EntityAttackData>(rawData);
+        if (!entities.ContainsKey(data.id)) return;
+        if (data.id == id) return;  // Ignore own attacks
+
+        var entity = entities[data.id];
+        entity.TryGetComponent(out ICanAttack attack);
+        if (attack == null) return;
+
+        attack.Attack();
+        Debug.Log($"Attack {data.id}");
     }
 
     void EntityDeath(string rawData)
