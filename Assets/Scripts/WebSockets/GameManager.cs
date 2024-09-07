@@ -87,7 +87,9 @@ public class GameManager : MonoBehaviour
         // Own player spawn
         if (data.id == id && data.entity == EntityType.Player) prefab = playerPrefab;
 
-        entities[data.id] = Instantiate(prefab, new Vector2(data.x, data.y), Quaternion.identity);
+        var instance = Instantiate(prefab, new Vector2(data.x, data.y), Quaternion.identity);
+        instance.GetComponent<Entity>().netId = data.id; // TODO: ???
+        entities[data.id] = instance;
         Debug.Log($"Spawn {data.entity} {data.id} at {new Vector2(data.x, data.y)} ({data.x},{data.y})");
     }
 
@@ -121,6 +123,7 @@ public class GameManager : MonoBehaviour
         if (data.id == id) return;  // Ignore self updates (for now)
 
         var entity = entities[data.id].GetComponent<Entity>();
+        if (entity == null) return;
 
         entity.dir = data.dir;
         entity.isMoving = data.isMoving;
