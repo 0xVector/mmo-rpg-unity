@@ -41,5 +41,9 @@ namespace InMessageData
     }
 
     public sealed class EntityAttackData : MessageData { }
-    public sealed class EntityDeathData : MessageData { }
+    public sealed class EntityDamageData : MessageData { 
+        public float damage { get; set; }
+        public float sourceX { get; set; }
+        public float sourceY { get; set; }
+    }
 }

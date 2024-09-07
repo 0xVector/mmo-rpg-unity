@@ -3,14 +3,14 @@ using UnityEngine;
 
 public class Health : MonoBehaviour, IDamageable
 {
-    public int maxHealth = 1;
-    public int health;
+    public float maxHealth = 1f;
+    public float health;
     public Action onDamage;
     public Action onDeath;
 
     public bool Alive { get => health > 0; }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(float damage)
     {
         health -= damage;
         onDamage?.Invoke();

@@ -36,6 +36,7 @@ public class GameManager : MonoBehaviour
         ws.bindHandler("entity-move", EntityMove);
         ws.bindHandler("entity-update", EntityUpdate);
         ws.bindHandler("entity-attack", EntityAttack);
+        ws.bindHandler("entity-damage", EntityDamage);
 
         // Start by registering
         Invoke("Register", 1f);
@@ -145,16 +146,14 @@ public class GameManager : MonoBehaviour
         Debug.Log($"Attack {data.id}");
     }
 
-    void EntityDeath(string rawData)
+    void EntityDamage(string rawData)
     {
-        var data = JsonSerializer.Deserialize<EntityDeathData>(rawData);
+        var data = JsonSerializer.Deserialize<EntityDamageData>(rawData);
         if (!entities.ContainsKey(data.id)) return;
 
         var entity = entities[data.id];
         entity.TryGetComponent(out IDamageable damageable);
         if (damageable == null) return;
-
-        damageable.Kill();
-        Debug.Log($"Death {data.id}");
+        damageable.TakeDamage(data.damage);
     }
 }

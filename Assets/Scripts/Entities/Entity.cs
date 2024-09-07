@@ -26,12 +26,12 @@ public abstract class Entity : MonoBehaviour, IMovable, ICanAttack
         health = GetComponent<Health>();
     }
 
-    void OnEnable()
+    protected virtual void OnEnable()
     {
         if (health) health.onDeath += Death;
     }
 
-    void OnDisable()
+    protected virtual void OnDisable()
     {
         if (health) health.onDeath -= Death;
     }
@@ -74,7 +74,7 @@ public abstract class Entity : MonoBehaviour, IMovable, ICanAttack
         onAttackHit?.Invoke();
     }
 
-    public void Death() { anim.SetTrigger("Die"); }
+    public void Death() { anim.SetTrigger("Death"); }
     public void OnDeathFinished()
     {
         Destroy(gameObject);
