@@ -40,6 +40,18 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Obstacles
+    uniqueID: 2543743803
+    locked: 0
+  - name: Enemies
+    uniqueID: 392080973
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Players
+    uniqueID: 1049359499
+    locked: 0
+  - name: Player (own)
+    uniqueID: 2734709811
     locked: 0
