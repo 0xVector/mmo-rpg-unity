@@ -34,7 +34,7 @@ public class PlayerAttack : MonoBehaviour
     void Update()
     {
         // Atack
-        bool attack = Input.GetButtonDown("Fire1");
+        bool attack = Input.GetButtonDown("Attack");
         if (attack && Time.time - lastAttackAt >= atackCooldown) {
             lastAttackAt = Time.time;
             Attack();
