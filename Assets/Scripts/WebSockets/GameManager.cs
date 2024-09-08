@@ -114,7 +114,7 @@ public class GameManager : MonoBehaviour
         if (movable == null) return;
 
         movable.MoveToOverTime(new Vector2(data.x, data.y), data.time);
-        Debug.Log($"Move {data.id} to {new Vector2(data.x, data.y)} ({data.x},{data.y}) t={data.time}");
+        Debug.Log($"Move {(data.time == 0 ? "[INSTANT]" : "")} {data.id} by {Vector2.Distance(new Vector2(data.x, data.y), entity.transform.position)} to {new Vector2(data.x, data.y)} ({entity.transform.position.x},{entity.transform.position.y}) t={data.time}");
     }
 
     void EntityUpdate(string rawData)
@@ -129,7 +129,7 @@ public class GameManager : MonoBehaviour
         entity.dir = data.dir;
         entity.isMoving = data.isMoving;
         entity.isDashing = data.isDashing;
-        
+
         var health = entity.GetComponent<Health>();
         if (health) health.SetHealth(data.hp);
         Debug.Log($"Update: facing={data.dir} moving={data.isMoving} dashing={data.isDashing} hp={data.hp} ({data.id})");
