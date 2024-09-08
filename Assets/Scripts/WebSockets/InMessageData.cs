@@ -5,7 +5,8 @@ namespace InMessageData
     public enum EntityType
     {
         Player,
-        Slime
+        Slime,
+        SlimePurple,
     }
 
     public abstract class MessageData

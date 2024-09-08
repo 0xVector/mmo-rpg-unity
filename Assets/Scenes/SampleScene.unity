@@ -406,7 +406,8 @@ MonoBehaviour:
   entityPrefabs:
   - {fileID: 1533168500326178794, guid: 6b3d840eef89170c6bd3981c7983a328, type: 3}
   - {fileID: 7027292429938545749, guid: f6f094f479f364ebd987f7958417577e, type: 3}
-  playerPrefab: {fileID: 2573344047281165295, guid: df6d7c6dca9062ff1bfc771781877b37, type: 3}
+  - {fileID: 2232707234335683127, guid: d2870b82445394ff6afa177adcaf8331, type: 3}
+  controlledPlayerPrefab: {fileID: 2573344047281165295, guid: df6d7c6dca9062ff1bfc771781877b37, type: 3}
   id: 
 --- !u!114 &1933616797
 MonoBehaviour:

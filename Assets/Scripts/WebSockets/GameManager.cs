@@ -12,7 +12,7 @@ using OutHeartbeatData = OutMessageData.HeartbeatData;
 public class GameManager : MonoBehaviour
 {
     public GameObject[] entityPrefabs;
-    public GameObject playerPrefab;
+    public GameObject controlledPlayerPrefab;
     [HideInInspector] public string id;
     Dictionary<string, GameObject> entities;
     WebSockets ws;
@@ -86,7 +86,7 @@ public class GameManager : MonoBehaviour
         GameObject prefab = entityPrefabs[(int)data.entity];
 
         // Own player spawn
-        if (data.id == id && data.entity == EntityType.Player) prefab = playerPrefab;
+        if (data.id == id && data.entity == EntityType.Player) prefab = controlledPlayerPrefab;
 
         var instance = Instantiate(prefab, new Vector2(data.x, data.y), Quaternion.identity);
         instance.GetComponent<Entity>().netId = data.id; // TODO: ???

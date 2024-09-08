@@ -4,7 +4,7 @@ using UnityEngine;
 public class Health : MonoBehaviour, IDamageable
 {
     public float maxHealth = 1f;
-    public float health;
+    public float health = 1f;
     public Action onDamage;
     public Action onDeath;
 
