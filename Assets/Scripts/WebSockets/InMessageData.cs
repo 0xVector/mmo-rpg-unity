@@ -38,6 +38,7 @@ namespace InMessageData
         public Direction dir { get; set; }
         public bool isMoving { get; set; }
         public bool isDashing { get; set; }
+        public float hp { get; set; }
     }
 
     public sealed class EntityAttackData : MessageData { }

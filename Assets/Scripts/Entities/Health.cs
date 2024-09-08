@@ -17,6 +17,11 @@ public class Health : MonoBehaviour, IDamageable
         if (health <= 0) Kill();
     }
 
+    public void SetHealth(float newHealth)
+    {
+        health = newHealth;
+    }
+
     public void Kill()
     {
         health = 0;

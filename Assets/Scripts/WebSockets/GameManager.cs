@@ -129,7 +129,10 @@ public class GameManager : MonoBehaviour
         entity.dir = data.dir;
         entity.isMoving = data.isMoving;
         entity.isDashing = data.isDashing;
-        Debug.Log($"Update: facing={data.dir} moving={data.isMoving} dashing={data.isDashing} ({data.id})");
+        
+        var health = entity.GetComponent<Health>();
+        if (health) health.SetHealth(data.hp);
+        Debug.Log($"Update: facing={data.dir} moving={data.isMoving} dashing={data.isDashing} hp={data.hp} ({data.id})");
     }
 
     void EntityAttack(string rawData)
