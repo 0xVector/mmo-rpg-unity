@@ -78,7 +78,11 @@ public abstract class Entity : MonoBehaviour, IMovable, ICanAttack
         onAttackHit?.Invoke();
     }
 
-    public void Death() { anim.SetTrigger("Death"); }
+    public void Death()
+    {
+        anim.SetTrigger("Death");
+        rb.simulated = false;
+    }
     public void OnDeathFinished()
     {
         Destroy(gameObject);
