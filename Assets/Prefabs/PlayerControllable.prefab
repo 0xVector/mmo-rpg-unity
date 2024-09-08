@@ -106,6 +106,10 @@ PrefabInstance:
       value: PlayerControllable
       objectReference: {fileID: 0}
     - target: {fileID: 5174111219748595827, guid: 6b3d840eef89170c6bd3981c7983a328, type: 3}
+      propertyPath: m_Mass
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5174111219748595827, guid: 6b3d840eef89170c6bd3981c7983a328, type: 3}
       propertyPath: m_BodyType
       value: 0
       objectReference: {fileID: 0}
