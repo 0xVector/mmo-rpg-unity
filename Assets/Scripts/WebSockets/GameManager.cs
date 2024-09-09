@@ -158,5 +158,6 @@ public class GameManager : MonoBehaviour
         entity.TryGetComponent(out IDamageable damageable);
         if (damageable == null) return;
         damageable.TakeDamage(data.damage);
+        Debug.Log($"Damage {data.id} by {data.damage}");
     }
 }
