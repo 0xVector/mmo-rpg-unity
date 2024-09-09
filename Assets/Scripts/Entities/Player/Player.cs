@@ -1,11 +1,15 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.U2D.Animation;
 
 [RequireComponent(typeof(Health))]
 public class Player : Entity
 {
+    public Color hurtColor;
+
+    public override void OnDamage()
+    {
+        sprite.color = hurtColor;
+        Invoke("ResetColor", 0.1f);
+    }
+
+    void ResetColor() { sprite.color = Color.white; }
 }

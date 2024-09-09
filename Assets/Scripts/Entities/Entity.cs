@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.U2D.Animation;
 
+[RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(SpriteLibrary))]
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(Rigidbody2D))]
@@ -15,6 +16,8 @@ public abstract class Entity : MonoBehaviour, IMovable, ICanAttack
     public event Action onAttackHit;
     protected Vector2? nextVel = null;
     protected Vector2? nextInstantMove = null;
+
+    protected SpriteRenderer sprite;
     protected SpriteLibrary spriteLib;
     protected Animator anim;
     protected Rigidbody2D rb;
@@ -22,6 +25,7 @@ public abstract class Entity : MonoBehaviour, IMovable, ICanAttack
 
     void Awake()
     {
+        sprite = GetComponent<SpriteRenderer>();
         spriteLib = GetComponent<SpriteLibrary>();
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
@@ -30,12 +34,20 @@ public abstract class Entity : MonoBehaviour, IMovable, ICanAttack
 
     protected virtual void OnEnable()
     {
-        if (health) health.onDeath += Death;
+        if (health)
+        {
+            health.onDamage += OnDamage;
+            health.onDeath += OnDeath;
+        }
     }
 
     protected virtual void OnDisable()
     {
-        if (health) health.onDeath -= Death;
+        if (health)
+        {
+            health.onDamage -= OnDamage;
+            health.onDeath -= OnDeath;
+        }
     }
 
     protected virtual void Update()
@@ -68,9 +80,17 @@ public abstract class Entity : MonoBehaviour, IMovable, ICanAttack
         }
     }
 
-    public void Attack()
+    public virtual void Attack()
     {
         anim.SetTrigger("Attack");
+    }
+
+    public abstract void OnDamage();
+
+    public virtual void OnDeath()
+    {
+        anim.SetTrigger("Death");
+        rb.simulated = false;
     }
 
     public void OnAttackAnimationHit()  // Animation event
@@ -78,11 +98,6 @@ public abstract class Entity : MonoBehaviour, IMovable, ICanAttack
         onAttackHit?.Invoke();
     }
 
-    public void Death()
-    {
-        anim.SetTrigger("Death");
-        rb.simulated = false;
-    }
     public void OnDeathFinished()
     {
         Destroy(gameObject);

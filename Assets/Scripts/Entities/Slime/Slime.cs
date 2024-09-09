@@ -1,20 +1,9 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Health))]
 public class Slime : Entity
 {
-    protected override void OnEnable()
-    {
-        base.OnEnable();
-        if (health) health.onDamage += OnDamage;
-    }
-
-    protected override void OnDisable()
-    {
-        base.OnDisable();
-        if (health) health.onDamage -= OnDamage;
-    }
-
-    public void OnDamage()
+    public override void OnDamage()
     {
         anim.SetTrigger("Damaged");
     }
