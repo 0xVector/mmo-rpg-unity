@@ -1,9 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
 using OutMessageData;
 
+/// <summary>
+/// Sends updates regarding the player to the server.
+/// Requires a <see cref="Player"/> and a <see cref="PlayerAttack"/> component.
+/// </summary>
 [RequireComponent(typeof(Player))]
 [RequireComponent(typeof(PlayerAttack))]
 public class PlayerUpdater : MonoBehaviour
@@ -33,23 +34,23 @@ public class PlayerUpdater : MonoBehaviour
 
     void OnEnable()
     {
-        GetComponent<PlayerAttack>().onAttack += sendAttack;
-        GetComponent<PlayerAttack>().onHit += sendHit;
+        GetComponent<PlayerAttack>().onAttack += SendAttack;
+        GetComponent<PlayerAttack>().onHit += SendHit;
     }
 
     void OnDisable()
     {
-        GetComponent<PlayerAttack>().onAttack -= sendAttack;
-        GetComponent<PlayerAttack>().onHit -= sendHit;
+        GetComponent<PlayerAttack>().onAttack -= SendAttack;
+        GetComponent<PlayerAttack>().onHit -= SendHit;
     }
 
     void Update()
     {
-        updatePosition();
-        updateState();
+        UpdatePosition();
+        UpdateState();
     }
 
-    void updatePosition()
+    void UpdatePosition()
     {
         Vector2 pos = transform.position;
         if (pos != lastPosition)
@@ -59,7 +60,7 @@ public class PlayerUpdater : MonoBehaviour
         }
     }
 
-    void updateState()
+    void UpdateState()
     {
         bool change = false;
         if (player.dir != lastDir)
@@ -89,12 +90,12 @@ public class PlayerUpdater : MonoBehaviour
         });
     }
 
-    public void sendAttack()
+    void SendAttack()
     {
         ws.SendWSMessage("attack", new AttackData { id = id });
     }
 
-    public void sendHit(Entity entity)
+    void SendHit(Entity entity)
     {
         ws.SendWSMessage("hit", new HitData { id = id, targetId = entity.netId });
     }

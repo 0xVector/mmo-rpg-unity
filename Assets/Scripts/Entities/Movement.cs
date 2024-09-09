@@ -1,13 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 
+/// <summary>
+/// Reacts to input and moves the object accordingly.
+/// Has to be attached to an object with an <see cref="Entity"/> component.
+/// </summary>
 [RequireComponent(typeof(Entity))]
 public class Movement : MonoBehaviour
 {
+    /// <summary>
+    /// The speed of movement in m/s.
+    /// </summary>
     public float speed = 10.0f;
+
+    /// <summary>
+    /// The speed of dashing in m/s.
+    /// </summary>
     public float dashSpeed = 20.0f;
+
     Entity entity;
     Rigidbody2D rb;
     Vector2 move = new Vector2(0, 0);

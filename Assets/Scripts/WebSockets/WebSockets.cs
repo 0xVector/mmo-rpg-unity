@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using System;
 using System.Text.Json;
@@ -7,26 +6,50 @@ using UnityEngine;
 
 using NativeWebSocket;
 
+/// <summary>
+/// Manages the WebSocket connection to the server.
+/// Allows sending messages to the server
+/// and binding event handlers for incoming messages.
+/// Uses the <see cref="NativeWebSocket"/> package.
+/// Requires a <see cref="GameManager"/> component.
+/// </summary>
+[RequireComponent(typeof(GameManager))]
 public class WebSockets : MonoBehaviour
 {
+    /// <summary>
+    /// The WebSocket server address.
+    /// </summary>
     public string SERVER_ADDRESS = "ws://localhost:3000";
+
     WebSocket websocket;
     Dictionary<string, Action<string>> eventHandlers;
     GameManager manager;
-    // TODO
     JsonSerializerOptions options = new JsonSerializerOptions { Converters = { new JsonStringEnumConverter(JsonNamingPolicy.KebabCaseLower) } };
 
+    /// <summary>
+    /// Binds a handler to an event.
+    /// </summary>
+    /// <param name="event">The event name.</param>
+    /// <param name="handler">The handler.</param>
     public void bindHandler(string @event, Action<string> handler) { eventHandlers[@event] = handler; }
 
-    public async void SendWSMessage(string event_name, object data)
+    /// <summary>
+    /// Sends a message to the server.
+    /// </summary>
+    /// <param name="eventName">The event name.</param>
+    /// <param name="data">The event data.</param>
+    public async void SendWSMessage(string eventName, object data)
     {
         if (websocket.State == WebSocketState.Open)
         {
-            string m = JsonSerializer.Serialize(new { @event = event_name, data }, options);
+            string m = JsonSerializer.Serialize(new { @event = eventName, data }, options);
             await websocket.SendText(m);
         }
     }
 
+    /// <summary>
+    /// Closes the WebSocket connection.
+    /// </summary>
     public async void CloseConnection() { await websocket.Close(); }
 
     async void Awake()
@@ -51,7 +74,6 @@ public class WebSockets : MonoBehaviour
         await websocket.Connect();
     }
 
-    // Update is called once per frame
     void Update()
     {
 #if !UNITY_WEBGL || UNITY_EDITOR
@@ -62,6 +84,9 @@ public class WebSockets : MonoBehaviour
     void OnApplicationQuit() { CloseConnection(); }
 }
 
+/// <summary>
+/// Represents a WebSocket message.
+/// </summary>
 class WebSocketMessage
 {
     public string @event { get; set; }

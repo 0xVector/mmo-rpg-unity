@@ -1,5 +1,9 @@
 using UnityEngine;
 
+/// <summary>
+/// Represents a slime entity.
+/// Requires a <see cref="Health"/> component.
+/// </summary>
 [RequireComponent(typeof(Health))]
 public class Slime : Entity
 {

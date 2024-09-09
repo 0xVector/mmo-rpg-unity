@@ -9,6 +9,9 @@ using OutJoinData = OutMessageData.JoinData;
 using OutSpawnData = OutMessageData.SpawnData;
 using OutHeartbeatData = OutMessageData.HeartbeatData;
 
+/// <summary>
+/// Provides handlers for incoming messages and manages the existing entities.
+/// </summary>
 public class GameManager : MonoBehaviour
 {
     public GameObject[] entityPrefabs;

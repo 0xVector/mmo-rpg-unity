@@ -2,19 +2,58 @@ using System;
 using UnityEngine;
 using UnityEngine.U2D.Animation;
 
+/// <summary>
+/// Represents an abstract entity that can be moved and can attack.
+/// Requires a <see cref="SpriteRenderer"/>, <see cref="SpriteLibrary"/>, <see cref="Animator"/>, and <see cref="Rigidbody2D"/> components.
+/// </summary>
 [RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(SpriteLibrary))]
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(Rigidbody2D))]
 public abstract class Entity : MonoBehaviour, IMovable, ICanAttack
 {
+    /// <summary>
+    /// The sprite libraries for each direction.
+    /// The order is the same as the <see cref="Direction"/> enum
+    /// - Down, Up, Left, Right.
+    /// </summary>
     public SpriteLibraryAsset[] spriteLibraries;
+
+    /// <summary>
+    /// The network ID (UUID) of the entity.
+    /// </summary>
     [HideInInspector] public string netId;
+
+    /// <summary>
+    /// The direction the entity is facing.
+    /// </summary>
     [HideInInspector] public Direction dir = Direction.Down;
+
+    /// <summary>
+    /// Whether the entity is moving.
+    /// </summary>
     [HideInInspector] public bool isMoving = false;
+
+    /// <summary>
+    /// Whether the entity is dashing.
+    /// </summary>
     [HideInInspector] public bool isDashing = false;
+
+    /// <summary>
+    /// Event that is triggered when the entity's attack actually hits.
+    /// </summary>
     public event Action onAttackHit;
+
+    /// <summary>
+    /// The velocity to change to in the next fixed update.
+    /// If null, the velocity will not be changed.
+    /// </summary>
     protected Vector2? nextVel = null;
+
+    /// <summary>
+    /// The position to instantly move to in the next fixed update.
+    /// If null, the position will not be changed.
+    /// </summary>
     protected Vector2? nextInstantMove = null;
 
     protected SpriteRenderer sprite;
@@ -32,7 +71,7 @@ public abstract class Entity : MonoBehaviour, IMovable, ICanAttack
         health = GetComponent<Health>();
     }
 
-    protected virtual void OnEnable()
+    void OnEnable()
     {
         if (health)
         {
@@ -41,7 +80,7 @@ public abstract class Entity : MonoBehaviour, IMovable, ICanAttack
         }
     }
 
-    protected virtual void OnDisable()
+    void OnDisable()
     {
         if (health)
         {
@@ -50,7 +89,7 @@ public abstract class Entity : MonoBehaviour, IMovable, ICanAttack
         }
     }
 
-    protected virtual void Update()
+    void Update()
     {
         spriteLib.spriteLibraryAsset = spriteLibraries[(int)dir];
         anim.SetBool("Moving", isMoving);
@@ -64,6 +103,11 @@ public abstract class Entity : MonoBehaviour, IMovable, ICanAttack
         }
     }
 
+    /// <summary>
+    /// Move the entity to a position over time.
+    /// </summary>
+    /// <param name="to">The position to move to.</param>
+    /// <param name="time>The time in seconds for the move to finish.</param>
     public void MoveToOverTime(Vector2 to, float time)
     {
         if (time == 0)
@@ -80,24 +124,39 @@ public abstract class Entity : MonoBehaviour, IMovable, ICanAttack
         }
     }
 
-    public virtual void Attack()
+    /// <summary>
+    /// Make the entity attack.
+    /// </summary>
+    public void Attack()
     {
         anim.SetTrigger("Attack");
     }
 
+    /// <summary>
+    /// Called when the entity takes damage.
+    /// </summary>
     public abstract void OnDamage();
 
-    public virtual void OnDeath()
+    /// <summary>
+    /// Called when the entity dies.
+    /// </summary>
+    public void OnDeath()
     {
         anim.SetTrigger("Death");
         rb.simulated = false;
     }
 
+    /// <summary>
+    /// Animation event that is triggered when the attack animation hits.
+    /// </summary>
     public void OnAttackAnimationHit()  // Animation event
     {
         onAttackHit?.Invoke();
     }
 
+    /// <summary>
+    /// Animation event that is triggered when the death animation finishes.
+    /// </summary>
     public void OnDeathFinished()
     {
         Destroy(gameObject);
@@ -118,6 +177,9 @@ public abstract class Entity : MonoBehaviour, IMovable, ICanAttack
     }
 }
 
+/// <summary>
+/// Represents the direction of an object.
+/// </summary>
 public enum Direction
 {
     Down,
