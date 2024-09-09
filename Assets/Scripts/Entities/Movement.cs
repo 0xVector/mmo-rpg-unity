@@ -16,6 +16,7 @@ public class Movement : MonoBehaviour
     {
         entity = GetComponent<Entity>();
         rb = GetComponent<Rigidbody2D>();
+        SetupCamera(transform);
     }
 
     void Update()
@@ -43,5 +44,11 @@ public class Movement : MonoBehaviour
         move.Normalize();
         move *= entity.isDashing ? dashSpeed : speed;
         rb.velocity = move;
+    }
+
+    void SetupCamera(Transform target)
+    {
+        Follow camera = FindObjectOfType<Follow>();
+        camera.target = target;
     }
 }
