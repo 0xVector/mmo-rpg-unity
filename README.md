@@ -12,4 +12,3 @@
 - main menu
 - hp bars
 - score
-- slimes attack
