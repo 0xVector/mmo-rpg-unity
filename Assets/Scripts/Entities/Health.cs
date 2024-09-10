@@ -47,11 +47,14 @@ public class Health : MonoBehaviour, IDamageable
     /// <summary>
     /// Sets the health of the object.
     /// Ignores the maximum health.
+    /// Doesn't trigger the onDamage event even if the new health is lower than the current health.
+    /// Does trigger the onDeath event though if the new health is 0 or lower.
     /// </summary>
     /// <param name="newHealth">The new health of the object.</param>
     public void SetHealth(float newHealth)
     {
         health = newHealth;
+        if (health <= 0) Kill();
     }
 
     /// <summary>
