@@ -26,6 +26,7 @@ public class Movement : MonoBehaviour
         entity = GetComponent<Entity>();
         rb = GetComponent<Rigidbody2D>();
         SetupCamera(transform);
+        SetupScore(entity);
     }
 
     void Update()
@@ -59,5 +60,11 @@ public class Movement : MonoBehaviour
     {
         Follow camera = FindObjectOfType<Follow>();
         camera.target = target;
+    }
+
+    void SetupScore(Entity entity)
+    {
+        HUD hud = FindObjectOfType<HUD>();
+        hud.player = entity;
     }
 }

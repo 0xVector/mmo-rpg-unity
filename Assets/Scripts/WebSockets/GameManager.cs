@@ -130,10 +130,14 @@ public class GameManager : MonoBehaviour
     {
         var data = JsonSerializer.Deserialize<EntityUpdateData>(rawData, options);
         if (!entities.ContainsKey(data.id)) return;
-        if (data.id == id) return;  // Ignore self updates (for now)
-
         var entity = entities[data.id].GetComponent<Entity>();
         if (entity == null) return;
+
+        if (data.id == id)  // Ignore self updates (for now) - just update score TODO
+        {
+            entity.score = data.score;
+            return;
+        }
 
         entity.dir = data.dir;
         entity.isMoving = data.isMoving;
@@ -142,7 +146,7 @@ public class GameManager : MonoBehaviour
 
         var health = entity.GetComponent<Health>();
         if (health) health.SetHealth(data.hp);
-        Debug.Log($"Update: facing={data.dir} moving={data.isMoving} dashing={data.isDashing} hp={data.hp} ({data.id})");
+        Debug.Log($"Update: facing={data.dir} moving={data.isMoving} dashing={data.isDashing} hp={data.hp} score={data.score} ({data.id})");
     }
 
     void EntityAttack(string rawData)
