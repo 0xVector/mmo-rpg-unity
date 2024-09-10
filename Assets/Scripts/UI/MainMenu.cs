@@ -1,6 +1,9 @@
 using UnityEngine;
 using UnityEngine.UIElements;
 
+/// <summary>
+/// Manages the main menu.
+/// </summary>
 public class MainMenu : MonoBehaviour
 {
     private VisualElement root;
