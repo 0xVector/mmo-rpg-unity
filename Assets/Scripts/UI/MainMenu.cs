@@ -1,3 +1,4 @@
+using NativeWebSocket;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -55,6 +56,9 @@ public class MainMenu : MonoBehaviour
     void Update()
     {
         connectionStatus.text = ws.State.ToString();
+        connectButton.SetEnabled(serverAddress.value != "" && ws.State != WebSocketState.Connecting);
+        registerButton.SetEnabled(playerName.value != "" && ws.State == WebSocketState.Open);
+        spawnButton.SetEnabled(manager.registered && ws.State == WebSocketState.Open);
     }
 
     void Connect()

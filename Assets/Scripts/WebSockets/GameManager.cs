@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -18,6 +17,7 @@ public class GameManager : MonoBehaviour
     public GameObject controlledPlayerPrefab;
     public string playerName = "Tester";
     [HideInInspector] public string id;
+    [HideInInspector] public bool registered = false;
     Dictionary<string, GameObject> entities;
     WebSockets ws;
 
@@ -63,6 +63,7 @@ public class GameManager : MonoBehaviour
     {
         var data = JsonSerializer.Deserialize<JoinData>(rawData);
         id = data.id;
+        registered = true;
         Debug.Log($"Registered with id: {id}");
     }
 
