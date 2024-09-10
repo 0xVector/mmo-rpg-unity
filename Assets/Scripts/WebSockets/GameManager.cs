@@ -94,6 +94,11 @@ public class GameManager : MonoBehaviour
 
         var instance = Instantiate(prefab, new Vector2(data.x, data.y), Quaternion.identity);
         instance.GetComponent<Entity>().netId = data.id; // TODO: ???
+
+        // Remove entity on death
+        instance.TryGetComponent(out Health health);
+        health.onDeath += () => entities.Remove(data.id);
+
         entities[data.id] = instance;
         Debug.Log($"Spawn {data.entity} {data.id} at {new Vector2(data.x, data.y)} ({data.x},{data.y})");
     }
@@ -133,6 +138,7 @@ public class GameManager : MonoBehaviour
         entity.dir = data.dir;
         entity.isMoving = data.isMoving;
         entity.isDashing = data.isDashing;
+        entity.score = data.score;
 
         var health = entity.GetComponent<Health>();
         if (health) health.SetHealth(data.hp);

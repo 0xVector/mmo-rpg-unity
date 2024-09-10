@@ -83,6 +83,7 @@ namespace InMessageData
         public bool isMoving { get; set; }
         public bool isDashing { get; set; }
         public float hp { get; set; }
+        public int score { get; set; }
     }
 
     /// <summary>

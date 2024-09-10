@@ -40,6 +40,11 @@ public abstract class Entity : MonoBehaviour, IMovable, ICanAttack
     [HideInInspector] public bool isDashing = false;
 
     /// <summary>
+    /// The score of the entity.
+    /// </summary>
+    public int score = 0;
+
+    /// <summary>
     /// Event that is triggered when the entity's attack actually hits.
     /// </summary>
     public event Action onAttackHit;
