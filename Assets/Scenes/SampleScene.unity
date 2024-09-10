@@ -332,6 +332,68 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c284035cd617d6fcc85e027b0084f04e, type: 3}
+--- !u!1 &1603707671
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1603707674}
+  - component: {fileID: 1603707673}
+  - component: {fileID: 1603707672}
+  m_Layer: 0
+  m_Name: HUD
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1603707672
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1603707671}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eedfb46061f302d05b5c21cbbb920435, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+--- !u!114 &1603707673
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1603707671}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PanelSettings: {fileID: 11400000, guid: 61b4162521c0c4100a30722a3d658be6, type: 2}
+  m_ParentUI: {fileID: 0}
+  sourceAsset: {fileID: 9197481963319205126, guid: ebc20d5754d524e6a9b8fee413f158e9, type: 3}
+  m_SortingOrder: 0
+--- !u!4 &1603707674
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1603707671}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.3388096, y: 0.018441603, z: 0.022559352}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1650040436
 GameObject:
   m_ObjectHideFlags: 0
@@ -485,7 +547,9 @@ MonoBehaviour:
   - {fileID: 7027292429938545749, guid: f6f094f479f364ebd987f7958417577e, type: 3}
   - {fileID: 2232707234335683127, guid: d2870b82445394ff6afa177adcaf8331, type: 3}
   controlledPlayerPrefab: {fileID: 2573344047281165295, guid: df6d7c6dca9062ff1bfc771781877b37, type: 3}
+  playerName: Tester
   id: 
+  registered: 0
 --- !u!114 &1933616797
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -523,3 +587,4 @@ SceneRoots:
   - {fileID: 1027751291}
   - {fileID: 1778745302}
   - {fileID: 1650040438}
+  - {fileID: 1603707674}
