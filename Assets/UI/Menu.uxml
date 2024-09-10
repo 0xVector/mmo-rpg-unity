@@ -1,0 +1,25 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement name="Root" style="flex-grow: 1; align-items: center; justify-content: center; flex-direction: column; align-self: auto; flex-wrap: nowrap;">
+        <ui:VisualElement name="menu-panel" style="height: auto; background-color: rgb(255, 255, 255); width: 400px;">
+            <ui:Label tabindex="-1" text="Welcome" parse-escape-sequences="true" display-tooltip-when-elided="true" name="welcome-label" />
+            <ui:VisualElement name="server-panel" style="flex-grow: 0; flex-shrink: 1; overflow: visible; justify-content: flex-start; align-self: auto; flex-direction: column; width: 100%; height: auto;">
+                <ui:Label tabindex="-1" text="Server connection" parse-escape-sequences="true" display-tooltip-when-elided="true" style="flex-shrink: 1; width: auto;" />
+                <ui:VisualElement style="flex-grow: 0; justify-content: space-between; flex-direction: row; flex-wrap: nowrap; align-self: stretch;">
+                    <ui:TextField picking-mode="Ignore" label="Server address:" value="ws://" multiline="false" name="server-address" password="false" max-length="-1" style="flex-shrink: 1; flex-basis: auto; width: 213px; font-size: 10px; align-items: flex-start; flex-direction: column; flex-grow: 1; align-self: stretch; margin-top: 2px; margin-right: 2px; margin-bottom: 2px; margin-left: 2px; padding-top: 2px; padding-right: 2px; padding-bottom: 2px; padding-left: 2px;" />
+                    <ui:VisualElement style="flex-grow: 0; flex-direction: column; align-items: flex-start; justify-content: center; align-self: center;">
+                        <ui:Label tabindex="-1" text="loading..." parse-escape-sequences="true" display-tooltip-when-elided="true" name="connection-status" style="flex-shrink: 1; flex-grow: 0; -unity-text-align: middle-center; margin-top: 1px; margin-right: 1px; margin-bottom: 1px; margin-left: 1px; padding-top: 2px; padding-right: 2px; padding-bottom: 2px; padding-left: 2px; align-self: center; font-size: 8px;" />
+                        <ui:Button text="Connect" parse-escape-sequences="true" display-tooltip-when-elided="true" name="server-connect" style="flex-shrink: 0; font-size: 5px; -unity-font-style: bold; margin-top: 1px; margin-right: 1px; margin-bottom: 1px; margin-left: 1px; padding-top: 5px; padding-right: 5px; padding-bottom: 5px; padding-left: 5px; width: auto; flex-grow: 0; flex-basis: auto; align-self: center;" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="register-panel" style="flex-grow: 1; flex-direction: row;">
+                <ui:TextField picking-mode="Ignore" label="Player name:" value="BestPlayer" name="player-name" style="flex-grow: 1;" />
+                <ui:Button text="Select" parse-escape-sequences="true" display-tooltip-when-elided="true" name="register-button" style="flex-shrink: 1;" />
+            </ui:VisualElement>
+            <ui:VisualElement name="game-panel" style="flex-grow: 1; flex-direction: row;">
+                <ui:Label tabindex="-1" text="Join the game" parse-escape-sequences="true" display-tooltip-when-elided="true" name="join-label" style="flex-grow: 0;" />
+                <ui:Button text="Join" parse-escape-sequences="true" display-tooltip-when-elided="true" name="spawn-button" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

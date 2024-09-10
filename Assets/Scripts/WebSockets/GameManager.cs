@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
 {
     public GameObject[] entityPrefabs;
     public GameObject controlledPlayerPrefab;
+    public string playerName = "Tester";
     [HideInInspector] public string id;
     Dictionary<string, GameObject> entities;
     WebSockets ws;
@@ -42,17 +43,17 @@ public class GameManager : MonoBehaviour
         ws.bindHandler("entity-damage", EntityDamage);
 
         // Start by registering
-        Invoke("Register", 1f);
-        Invoke("SpawnSelf", 2f);
+        // Invoke("Register", 1f);
+        // Invoke("SpawnSelf", 2f);
     }
 
-    void Register()
+    public void Register()
     {
         Debug.Log("Registering...");
-        ws.SendWSMessage("join", new OutJoinData { playerName = "Tester" });
+        ws.SendWSMessage("join", new OutJoinData { playerName = playerName });
     }
 
-    void SpawnSelf()
+    public void SpawnSelf()
     {
         Debug.Log("Requesting spawn...");
         ws.SendWSMessage("spawn", new OutSpawnData { id = id });

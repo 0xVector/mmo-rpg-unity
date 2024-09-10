@@ -17,14 +17,27 @@ using NativeWebSocket;
 public class WebSockets : MonoBehaviour
 {
     /// <summary>
-    /// The WebSocket server address.
+    /// Exposes the WebSocket connection state.
     /// </summary>
-    public string SERVER_ADDRESS = "ws://localhost:3000";
+    /// <value>The current <see cref="WebSocketState"/> of the connection.</value>
+    public WebSocketState State => websocket?.State ?? WebSocketState.Closed;
 
-    WebSocket websocket;
-    Dictionary<string, Action<string>> eventHandlers;
-    GameManager manager;
-    JsonSerializerOptions options = new JsonSerializerOptions { Converters = { new JsonStringEnumConverter(JsonNamingPolicy.KebabCaseLower) } };
+    /// <summary>
+    /// Returns whether the WebSocket connection is open.
+    /// </summary>
+    /// <value>True if the connection is open, false otherwise.</value>
+    public bool Connected => State == WebSocketState.Open;
+
+    /// <summary>
+    /// The WebSocket server address that will be used by <see cref="Connect"/>.
+    /// Changing this value will not affect the current connection.
+    /// </summary>
+    public string ServerAddress = "ws://localhost:3000";
+
+    private static readonly JsonSerializerOptions options = new() { Converters = { new JsonStringEnumConverter(JsonNamingPolicy.KebabCaseLower) } };
+    private WebSocket websocket;
+    private Dictionary<string, Action<string>> eventHandlers;
+    private GameManager manager;
 
     /// <summary>
     /// Binds a handler to an event.
@@ -48,16 +61,15 @@ public class WebSockets : MonoBehaviour
     }
 
     /// <summary>
-    /// Closes the WebSocket connection.
+    /// Connects to the WebSocket server.
+    /// Uses the value from <see cref="ServerAddress"/>.
+    /// If a connection is already open, it will be closed.
     /// </summary>
-    public async void CloseConnection() { await websocket.Close(); }
-
-    async void Awake()
+    public async void Connect()
     {
-        websocket = new WebSocket(SERVER_ADDRESS);
-        eventHandlers = new Dictionary<string, Action<string>>();
-        manager = GetComponent<GameManager>();
+        if (Connected) CloseConnection();
 
+        websocket = new WebSocket(ServerAddress);
         websocket.OnOpen += () => Debug.Log("Connected!");
         websocket.OnError += (e) => Debug.Log("Error! " + e);
         websocket.OnClose += (e) => Debug.Log("Connection closed!");
@@ -70,15 +82,32 @@ public class WebSockets : MonoBehaviour
             if (handler != null) handler(JsonSerializer.Serialize(message.data));  // hacky way to bypass unknown type
         };
 
-        Debug.Log("Connecting to the server...");
+        Debug.Log($"Connecting to the server... ({ServerAddress})");
         await websocket.Connect();
+    }
+
+    /// <summary>
+    /// Closes the WebSocket connection.
+    /// </summary>
+    public async void CloseConnection()
+    {
+        if (Connected) await websocket.Close();
+    }
+
+    void Awake()
+    {
+        eventHandlers = new Dictionary<string, Action<string>>();
+        manager = GetComponent<GameManager>();
     }
 
     void Update()
     {
+        if (Connected)
+        {
 #if !UNITY_WEBGL || UNITY_EDITOR
-        websocket.DispatchMessageQueue();
+            websocket.DispatchMessageQueue();
 #endif
+        }
     }
 
     void OnApplicationQuit() { CloseConnection(); }
