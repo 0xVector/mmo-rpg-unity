@@ -1,4 +1,6 @@
-namespace InMessageData
+using Entities;
+
+namespace WebSockets.InMessageData
 {
 
     /// <summary>

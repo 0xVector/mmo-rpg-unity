@@ -1,23 +1,29 @@
 using UnityEngine;
 using UnityEngine.UIElements;
 
-/// <summary>
-/// Manages the HUD that displays the player's score.
-/// </summary>
-public class HUD : MonoBehaviour
+using Entities;
+
+namespace UI
 {
-    [HideInInspector] public Entity player;
-    private VisualElement root;
-    private Label score;
 
-    void OnEnable()
+    /// <summary>
+    /// Manages the HUD that displays the player's score.
+    /// </summary>
+    public class HUD : MonoBehaviour
     {
-        root = GetComponent<UIDocument>().rootVisualElement;
-        score = root.Q<Label>("score");
-    }
+        [HideInInspector] public Entity player;
+        private VisualElement root;
+        private Label score;
 
-    void Update()
-    {
-        score.text = player?.score.ToString() ?? "0";
+        void OnEnable()
+        {
+            root = GetComponent<UIDocument>().rootVisualElement;
+            score = root.Q<Label>("score");
+        }
+
+        void Update()
+        {
+            score.text = player?.score.ToString() ?? "0";
+        }
     }
 }

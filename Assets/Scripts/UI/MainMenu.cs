@@ -2,89 +2,95 @@ using NativeWebSocket;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-/// <summary>
-/// Manages the main menu.
-/// </summary>
-public class MainMenu : MonoBehaviour
+using WebSockets;
+
+namespace UI
 {
-    private VisualElement root;
-    private TextField serverAddress;
-    private Button connectButton;
-    private Label connectionStatus;
-    private TextField playerName;
-    private Button registerButton;
-    private Button spawnButton;
 
-    private WebSockets ws;
-    private GameManager manager;
-
-    void OnEnable()
+    /// <summary>
+    /// Manages the main menu.
+    /// </summary>
+    public class MainMenu : MonoBehaviour
     {
-        var managerObj = GameObject.Find("Manager");
-        ws = managerObj.GetComponent<WebSockets>();
-        manager = managerObj.GetComponent<GameManager>();
+        private VisualElement root;
+        private TextField serverAddress;
+        private Button connectButton;
+        private Label connectionStatus;
+        private TextField playerName;
+        private Button registerButton;
+        private Button spawnButton;
 
-        root = GetComponent<UIDocument>().rootVisualElement;
+        private WebSocketManager ws;
+        private GameManager manager;
 
-        serverAddress = root.Q<TextField>("server-address");
-        connectButton = root.Q<Button>("server-connect");
-        connectionStatus = root.Q<Label>("connection-status");
-        playerName = root.Q<TextField>("player-name");
-        registerButton = root.Q<Button>("register-button");
-        spawnButton = root.Q<Button>("spawn-button");
+        void OnEnable()
+        {
+            var managerObj = GameObject.Find("Manager");
+            ws = managerObj.GetComponent<WebSocketManager>();
+            manager = managerObj.GetComponent<GameManager>();
 
-        serverAddress.value = ws.ServerAddress;
-        playerName.value = manager.playerName;
+            root = GetComponent<UIDocument>().rootVisualElement;
 
-        // Register event handlers
-        connectButton.clicked += Connect;
-        serverAddress.RegisterCallback<ChangeEvent<string>>(ChangeAddress);
-        playerName.RegisterCallback<ChangeEvent<string>>(ChangePlayerName);
-        registerButton.clicked += Register;
-        spawnButton.clicked += Spawn;
-    }
+            serverAddress = root.Q<TextField>("server-address");
+            connectButton = root.Q<Button>("server-connect");
+            connectionStatus = root.Q<Label>("connection-status");
+            playerName = root.Q<TextField>("player-name");
+            registerButton = root.Q<Button>("register-button");
+            spawnButton = root.Q<Button>("spawn-button");
 
-    void OnDisable()
-    {
-        connectButton.clicked -= Connect;
-        serverAddress.UnregisterCallback<ChangeEvent<string>>(ChangeAddress);
-        playerName.UnregisterCallback<ChangeEvent<string>>(ChangePlayerName);
-        registerButton.clicked -= Register;
-        spawnButton.clicked -= Spawn;
-    }
+            serverAddress.value = ws.ServerAddress;
+            playerName.value = manager.playerName;
 
-    void Update()
-    {
-        connectionStatus.text = ws.State.ToString();
-        connectButton.SetEnabled(serverAddress.value != "" && ws.State != WebSocketState.Connecting);
-        registerButton.SetEnabled(playerName.value != "" && ws.State == WebSocketState.Open);
-        spawnButton.SetEnabled(manager.registered && ws.State == WebSocketState.Open);
-    }
+            // Register event handlers
+            connectButton.clicked += Connect;
+            serverAddress.RegisterCallback<ChangeEvent<string>>(ChangeAddress);
+            playerName.RegisterCallback<ChangeEvent<string>>(ChangePlayerName);
+            registerButton.clicked += Register;
+            spawnButton.clicked += Spawn;
+        }
 
-    void Connect()
-    {
-        ws.Connect();
-    }
+        void OnDisable()
+        {
+            connectButton.clicked -= Connect;
+            serverAddress.UnregisterCallback<ChangeEvent<string>>(ChangeAddress);
+            playerName.UnregisterCallback<ChangeEvent<string>>(ChangePlayerName);
+            registerButton.clicked -= Register;
+            spawnButton.clicked -= Spawn;
+        }
 
-    void ChangeAddress(ChangeEvent<string> e)
-    {
-        ws.ServerAddress = e.newValue;
-    }
+        void Update()
+        {
+            connectionStatus.text = ws.State.ToString();
+            connectButton.SetEnabled(serverAddress.value != "" && ws.State != WebSocketState.Connecting);
+            registerButton.SetEnabled(playerName.value != "" && ws.State == WebSocketState.Open);
+            spawnButton.SetEnabled(manager.registered && ws.State == WebSocketState.Open);
+        }
 
-    void ChangePlayerName(ChangeEvent<string> e)
-    {
-        manager.playerName = e.newValue;
-    }
+        void Connect()
+        {
+            ws.Connect();
+        }
 
-    void Register()
-    {
-        manager.playerName = playerName.value;
-        manager.Register();
-    }
+        void ChangeAddress(ChangeEvent<string> e)
+        {
+            ws.ServerAddress = e.newValue;
+        }
 
-    void Spawn()
-    {
-        manager.SpawnSelf();
-        root.style.display = DisplayStyle.None;
+        void ChangePlayerName(ChangeEvent<string> e)
+        {
+            manager.playerName = e.newValue;
+        }
+
+        void Register()
+        {
+            manager.playerName = playerName.value;
+            manager.Register();
+        }
+
+        void Spawn()
+        {
+            manager.SpawnSelf();
+            root.style.display = DisplayStyle.None;
+        }
     }
 }

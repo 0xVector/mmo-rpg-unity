@@ -1,14 +1,17 @@
 using UnityEngine;
 
-/// <summary>
-/// Represents a slime entity.
-/// Requires a <see cref="Health"/> component.
-/// </summary>
-[RequireComponent(typeof(Health))]
-public class Slime : Entity
+namespace Entities.Slime
 {
-    public override void OnDamage()
+    /// <summary>
+    /// Represents a slime entity.
+    /// Requires a <see cref="Health"/> component.
+    /// </summary>
+    [RequireComponent(typeof(Health))]
+    public class Slime : Entity
     {
-        anim.SetTrigger("Damaged");
+        public override void OnDamage()
+        {
+            anim.SetTrigger("Damaged");
+        }
     }
 }

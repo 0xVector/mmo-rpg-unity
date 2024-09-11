@@ -1,102 +1,107 @@
 using UnityEngine;
-using OutMessageData;
 
-/// <summary>
-/// Sends updates regarding the player to the server.
-/// Requires a <see cref="Player"/> and a <see cref="PlayerAttack"/> component.
-/// </summary>
-[RequireComponent(typeof(Player))]
-[RequireComponent(typeof(PlayerAttack))]
-public class PlayerUpdater : MonoBehaviour
+using WebSockets;
+using WebSockets.OutMessageData;
+
+namespace Entities.Player
 {
-    string id;
-    Direction lastDir;
-    Vector2 lastPosition;
-    bool lastIsMoving;
-    bool lastDashing;
-
-    Player player;
-    WebSockets ws;
-
-    void Awake()
+    /// <summary>
+    /// Sends updates regarding the player to the server.
+    /// Requires a <see cref="Player"/> and a <see cref="PlayerAttack"/> component.
+    /// </summary>
+    [RequireComponent(typeof(Player))]
+    [RequireComponent(typeof(PlayerAttack))]
+    public class PlayerUpdater : MonoBehaviour
     {
-        player = GetComponent<Player>();
+        string id;
+        Direction lastDir;
+        Vector2 lastPosition;
+        bool lastIsMoving;
+        bool lastDashing;
 
-        GameObject manager = GameObject.Find("Manager");
-        ws = manager.GetComponent<WebSockets>();
-        id = manager.GetComponent<GameManager>().id;
+        Player player;
+        WebSocketManager ws;
 
-        lastDir = Direction.Down;
-        lastPosition = transform.position;
-        lastIsMoving = false;
-        lastDashing = false;
-    }
-
-    void OnEnable()
-    {
-        GetComponent<PlayerAttack>().onAttack += SendAttack;
-        GetComponent<PlayerAttack>().onHit += SendHit;
-    }
-
-    void OnDisable()
-    {
-        GetComponent<PlayerAttack>().onAttack -= SendAttack;
-        GetComponent<PlayerAttack>().onHit -= SendHit;
-    }
-
-    void Update()
-    {
-        UpdatePosition();
-        UpdateState();
-    }
-
-    void UpdatePosition()
-    {
-        Vector2 pos = transform.position;
-        if (pos != lastPosition)
+        void Awake()
         {
-            lastPosition = pos;
-            ws.SendWSMessage("move", new MoveData { id = id, x = pos.x, y = pos.y });
-        }
-    }
+            player = GetComponent<Player>();
 
-    void UpdateState()
-    {
-        bool change = false;
-        if (player.dir != lastDir)
-        {
-            lastDir = player.dir;
-            change = true;
+            GameObject manager = GameObject.Find("Manager");
+            ws = manager.GetComponent<WebSocketManager>();
+            id = manager.GetComponent<GameManager>().id;
+
+            lastDir = Direction.Down;
+            lastPosition = transform.position;
+            lastIsMoving = false;
+            lastDashing = false;
         }
 
-        if (player.isMoving != lastIsMoving)
+        void OnEnable()
         {
-            lastIsMoving = player.isMoving;
-            change = true;
+            GetComponent<PlayerAttack>().onAttack += SendAttack;
+            GetComponent<PlayerAttack>().onHit += SendHit;
         }
 
-        if (player.isDashing != lastDashing)
+        void OnDisable()
         {
-            lastDashing = player.isDashing;
-            change = true;
+            GetComponent<PlayerAttack>().onAttack -= SendAttack;
+            GetComponent<PlayerAttack>().onHit -= SendHit;
         }
 
-        if (change) ws.SendWSMessage("update", new UpdateData
+        void Update()
         {
-            id = id,
-            dir = player.dir,
-            isMoving = player.isMoving,
-            isDashing = player.isDashing
-        });
-    }
+            UpdatePosition();
+            UpdateState();
+        }
 
-    void SendAttack()
-    {
-        ws.SendWSMessage("attack", new AttackData { id = id });
-    }
+        void UpdatePosition()
+        {
+            Vector2 pos = transform.position;
+            if (pos != lastPosition)
+            {
+                lastPosition = pos;
+                ws.SendWSMessage("move", new MoveData { id = id, x = pos.x, y = pos.y });
+            }
+        }
 
-    void SendHit(Entity entity)
-    {
-        ws.SendWSMessage("hit", new HitData { id = id, targetId = entity.netId });
+        void UpdateState()
+        {
+            bool change = false;
+            if (player.dir != lastDir)
+            {
+                lastDir = player.dir;
+                change = true;
+            }
+
+            if (player.isMoving != lastIsMoving)
+            {
+                lastIsMoving = player.isMoving;
+                change = true;
+            }
+
+            if (player.isDashing != lastDashing)
+            {
+                lastDashing = player.isDashing;
+                change = true;
+            }
+
+            if (change) ws.SendWSMessage("update", new UpdateData
+            {
+                id = id,
+                dir = player.dir,
+                isMoving = player.isMoving,
+                isDashing = player.isDashing
+            });
+        }
+
+        void SendAttack()
+        {
+            ws.SendWSMessage("attack", new AttackData { id = id });
+        }
+
+        void SendHit(Entity entity)
+        {
+            ws.SendWSMessage("hit", new HitData { id = id, targetId = entity.netId });
+        }
     }
 }

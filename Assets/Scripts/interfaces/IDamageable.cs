@@ -1,16 +1,19 @@
-/// <summary>
-/// Represents an object that can take damage.
-/// </summary>
-interface IDamageable
+namespace Interfaces
 {
     /// <summary>
-    /// Make the object take damage.
+    /// Represents an object that can take damage.
     /// </summary>
-    /// <param name="damage">The amount of damage to give.</param>
-    public void TakeDamage(float damage);
+    interface IDamageable
+    {
+        /// <summary>
+        /// Make the object take damage.
+        /// </summary>
+        /// <param name="damage">The amount of damage to give.</param>
+        public void TakeDamage(float damage);
 
-    /// <summary>
-    /// Kill the object.
-    /// </summary>
-    public void Kill();
+        /// <summary>
+        /// Kill the object.
+        /// </summary>
+        public void Kill();
+    }
 }

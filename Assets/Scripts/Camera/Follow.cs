@@ -1,16 +1,19 @@
-using UnityEngine;
-
-public class Follow : MonoBehaviour
+namespace Camera
 {
-    public Transform target;
-    public float smoothTime = 0.3f;
-    public Vector3 offset;
+    using UnityEngine;
 
-    Vector3 velocity = Vector3.zero;
-
-    void FixedUpdate()
+    public class Follow : MonoBehaviour
     {
-        var targetPos = target != null ? target.position : Vector3.zero;
-        transform.position = Vector3.SmoothDamp(transform.position, targetPos + offset, ref velocity, smoothTime);
+        public Transform target;
+        public float smoothTime = 0.3f;
+        public Vector3 offset;
+
+        Vector3 velocity = Vector3.zero;
+
+        void FixedUpdate()
+        {
+            var targetPos = target != null ? target.position : Vector3.zero;
+            transform.position = Vector3.SmoothDamp(transform.position, targetPos + offset, ref velocity, smoothTime);
+        }
     }
 }

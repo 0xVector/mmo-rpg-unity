@@ -1,4 +1,6 @@
-namespace OutMessageData
+using Entities;
+
+namespace WebSockets.OutMessageData
 {
     /// <summary>
     /// Represents abstract outgoing message data.
