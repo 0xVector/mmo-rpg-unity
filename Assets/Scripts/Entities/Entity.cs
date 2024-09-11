@@ -98,6 +98,7 @@ public abstract class Entity : MonoBehaviour, IMovable, ICanAttack
     {
         spriteLib.spriteLibraryAsset = spriteLibraries[(int)dir];
         anim.SetBool("Moving", isMoving);
+        anim.speed = isDashing ? 2 : 1;  // Double animation speed when dashing
 
         // Horizontal flip
         if ((dir == Direction.Left && transform.localScale.x > 0) || (dir != Direction.Left && transform.localScale.x < 0))
