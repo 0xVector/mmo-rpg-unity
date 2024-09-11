@@ -1,0 +1,53 @@
+### YamlMime:ManagedReference
+items:
+- uid: Entities
+  commentId: N:Entities
+  id: Entities
+  children:
+  - Entities.Direction
+  - Entities.Entity
+  - Entities.Health
+  - Entities.Movement
+  langs:
+  - csharp
+  - vb
+  name: Entities
+  nameWithType: Entities
+  fullName: Entities
+  type: Namespace
+  assemblies:
+  - Assembly-CSharp
+references:
+- uid: Entities.Entity
+  commentId: T:Entities.Entity
+  parent: Entities
+  href: Entities.Entity.html
+  name: Entity
+  nameWithType: Entity
+  fullName: Entities.Entity
+- uid: Entities.Direction
+  commentId: T:Entities.Direction
+  parent: Entities
+  href: Entities.Direction.html
+  name: Direction
+  nameWithType: Direction
+  fullName: Entities.Direction
+- uid: Entities.Movement
+  commentId: T:Entities.Movement
+  href: Entities.Movement.html
+  name: Movement
+  nameWithType: Movement
+  fullName: Entities.Movement
+- uid: Entities.Health
+  commentId: T:Entities.Health
+  parent: Entities
+  href: Entities.Health.html
+  name: Health
+  nameWithType: Health
+  fullName: Entities.Health
+- uid: Entities
+  commentId: N:Entities
+  href: Entities.html
+  name: Entities
+  nameWithType: Entities
+  fullName: Entities

@@ -1,0 +1,23 @@
+### YamlMime:ManagedReference
+items:
+- uid: Entities.Slime
+  commentId: N:Entities.Slime
+  id: Entities.Slime
+  children:
+  - Entities.Slime.Slime
+  langs:
+  - csharp
+  - vb
+  name: Entities.Slime
+  nameWithType: Entities.Slime
+  fullName: Entities.Slime
+  type: Namespace
+  assemblies:
+  - Assembly-CSharp
+references:
+- uid: Entities.Slime.Slime
+  commentId: T:Entities.Slime.Slime
+  href: Entities.Slime.Slime.html
+  name: Slime
+  nameWithType: Slime
+  fullName: Entities.Slime.Slime

@@ -1,0 +1,30 @@
+### YamlMime:ManagedReference
+items:
+- uid: UI
+  commentId: N:UI
+  id: UI
+  children:
+  - UI.HUD
+  - UI.MainMenu
+  langs:
+  - csharp
+  - vb
+  name: UI
+  nameWithType: UI
+  fullName: UI
+  type: Namespace
+  assemblies:
+  - Assembly-CSharp
+references:
+- uid: UI.MainMenu
+  commentId: T:UI.MainMenu
+  href: UI.MainMenu.html
+  name: MainMenu
+  nameWithType: MainMenu
+  fullName: UI.MainMenu
+- uid: UI.HUD
+  commentId: T:UI.HUD
+  href: UI.HUD.html
+  name: HUD
+  nameWithType: HUD
+  fullName: UI.HUD

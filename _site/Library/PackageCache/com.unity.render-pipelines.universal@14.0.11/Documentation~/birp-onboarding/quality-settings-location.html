@@ -1,0 +1,264 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Find graphics quality settings in URP | mmo-rpg-unity </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Find graphics quality settings in URP | mmo-rpg-unity ">
+      
+      
+      <link rel="icon" href="../../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/0xVector/mmo-rpg-unity/blob/master/Library/PackageCache/com.unity.render-pipelines.universal@14.0.11/Documentation~/birp-onboarding/quality-settings-location.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../../index.html">
+            <img id="logo" class="svg" src="../../../../../logo.svg" alt="mmo-rpg-unity">
+            mmo-rpg-unity
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="find-graphics-quality-settings-in-urp">Find graphics quality settings in URP</h1>
+
+<p>URP splits its quality settings between Project Settings and the URP Asset to allow for more versatility in the quality levels your project has. As a result, some settings that Built-In Render Pipeline (BiRP) listed in the Project Settings <strong>Quality</strong> section have moved or changed, or no longer exist.</p>
+<p>The following table describes all the settings that the Built-in Renderer lists in the Project Settings <strong>Quality</strong> section, and where that setting is now located within URP.</p>
+<table>
+<thead>
+<tr>
+<th><strong>BiRP Setting</strong></th>
+<th><strong>URP Setting</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Rendering</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>Render Pipeline Asset</td>
+<td><strong>Project Settings</strong> &gt; <strong>Quality</strong> &gt; <strong>Rendering</strong> &gt; <strong>Render Pipeline Asset</strong></td>
+</tr>
+<tr>
+<td>Pixel Light Count</td>
+<td>In URP, the maximum number of real-time lights per object depends on the render path in use. For more information, refer to <a href="../urp-universal-renderer.html#rendering-path-comparison">Rendering Path comparison</a>.<br><br>To set the light count per object, use the following property: <strong>URP Asset</strong> &gt; <strong>Lighting</strong> &gt; <strong>Additional Lights</strong> &gt; <strong>Per Pixel</strong> &gt; <strong>Per Object Limit</strong></td>
+</tr>
+<tr>
+<td>Anti-aliasing</td>
+<td>There are two types of anti-aliasing in URP: you control Multisample Anti-aliasing (MSAA) in the URP Asset, and other anti-aliasing types on a per camera basis. For more information refer to <a href="../anti-aliasing.html">Anti-aliasing in the Universal Render Pipeline</a>.<br><br>To control MSAA, use the following property:<br><br><strong>URP Asset</strong> &gt; <strong>Quality</strong> &gt; <strong>Anti-aliasing (MSAA)</strong><br><br>To control any other type of anti-aliasing, use the following property on a per camera basis:<br><br><strong>Camera</strong> &gt; <strong>Rendering</strong> &gt; <strong>Anti-aliasing</strong></td>
+</tr>
+<tr>
+<td>Real-time Reflection Probes</td>
+<td><strong>Project Settings</strong> &gt; <strong>Quality</strong> &gt; <strong>Rendering</strong> &gt; <strong>Real-time Reflection Probes</strong></td>
+</tr>
+<tr>
+<td>Resolution Scaling Fixed DPI Factor</td>
+<td>This property remains in the same place in URP. However, URP also supports the use of Upscalers to handle resolution scaling in the URP Asset. For more information on the use of upscalers, refer to <a href="../universalrp-asset.html#quality">Quality in the URP Asset</a>.<br><br>To set Resolution Scaling Fixed DPI Factor, use the following property:<br><br><strong>Project Settings</strong> &gt; <strong>Quality</strong> &gt; <strong>Rendering</strong> &gt; <strong>Resolution Scaling Fixed DPI Factor</strong><br><br>To set resolution scaling in the URP Asset, use the following property:<br><br><strong>URP Asset</strong> &gt; <strong>Quality</strong> &gt; <strong>Render Scale</strong> and <strong>Upscaling Filter</strong></td>
+</tr>
+<tr>
+<td>VSync Count</td>
+<td><strong>Project Settings</strong> &gt; <strong>Quality</strong> &gt; <strong>Rendering</strong> &gt; <strong>VSync Count</strong></td>
+</tr>
+<tr>
+<td><strong>Textures</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>Global Mipmap Limit</td>
+<td><strong>Project Settings</strong> &gt; <strong>Quality</strong> &gt; <strong>Textures</strong> &gt; <strong>Global Mipmap Limit</strong></td>
+</tr>
+<tr>
+<td>Anisotropic Textures</td>
+<td><strong>Project Settings</strong> &gt; <strong>Quality</strong> &gt; <strong>Textures</strong> &gt; <strong>Anisotropic Textures</strong></td>
+</tr>
+<tr>
+<td>Texture Streaming</td>
+<td><strong>Project Settings</strong> &gt; <strong>Quality</strong> &gt; <strong>Textures</strong> &gt; <strong>Texture Streaming</strong></td>
+</tr>
+<tr>
+<td><strong>Particles</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>Soft Particles</td>
+<td>To enable soft particles use the shader keyword <code>_SOFTPARTICLES_ON</code> inside the relevant particle shaders.</td>
+</tr>
+<tr>
+<td>Particle Raycast Budget</td>
+<td><strong>Project Settings</strong> &gt; <strong>Quality</strong> &gt; <strong>Particles</strong> &gt; <strong>Particle Raycast Budget</strong></td>
+</tr>
+<tr>
+<td><strong>Terrain</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>Billboards Face Camera Position</td>
+<td><strong>Project Settings</strong> &gt; <strong>Quality</strong> &gt; <strong>Terrain</strong> &gt; <strong>Billboards Face Camera Position</strong></td>
+</tr>
+<tr>
+<td>Use Legacy Details Distribution</td>
+<td><strong>Project Settings</strong> &gt; <strong>Quality</strong> &gt; <strong>Terrain</strong> &gt; <strong>Use Legacy Details Distribution</strong></td>
+</tr>
+<tr>
+<td><strong>Shadows</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>Shadowmask Mode</td>
+<td><strong>Project Settings</strong> &gt; <strong>Quality</strong> &gt; <strong>Shadows</strong> &gt; <strong>Shadowmask Mode</strong></td>
+</tr>
+<tr>
+<td>Shadows</td>
+<td>In URP you can enable shadows from two types of light separately. One is the Main Light of a scene, and the other is all other Additional Lights. To do this, set following properties as necessary:<br><br>To enable shadows cast by the Main Light, use the following property:<br><br><strong>URP Asset</strong> &gt; <strong>Lighting</strong> &gt; <strong>Main Light</strong> &gt; <strong>Cast Shadows</strong><br><br>To enable shadows cast by Additional Lights, use the following property:<br><br><strong>URP Asset</strong> &gt; <strong>Lighting</strong> &gt; <strong>Additional Lights</strong> &gt; <strong>Cast Shadows</strong><br><br><strong>Note</strong>: You no longer select the type of Shadows when you enable shadows. Instead to use Soft Shadows, enable <strong>URP Asset</strong> &gt; <strong>Shadows</strong> &gt; <strong>Soft Shadows</strong> and select an appropriate quality level.</td>
+</tr>
+<tr>
+<td>Shadow Resolution</td>
+<td>You can set Shadow Resolution separately for the Main Light and Additional Lights. Additional Lights use a Shadow Atlas with three tiers: Low, Medium, and High.<br><br>To set the shadow resolution for the Main Light, use the following property:<br><br><strong>URP Asset</strong> &gt; <strong>Lighting</strong> &gt; <strong>Main Light</strong> &gt; <strong>Shadow Resolution</strong><br><br>To set the shadow resolution for Additional Lights, use the following properties:<br><br><strong>URP Asset</strong> &gt; <strong>Lighting</strong> &gt; <strong>Additional Lights</strong> &gt; <strong>Shadow Atlas Resolution</strong> and <strong>Shadow Resolution Tiers</strong></td>
+</tr>
+<tr>
+<td>Shadow Projection</td>
+<td>URP only supports Stable Fit Shadow Projection.</td>
+</tr>
+<tr>
+<td>Shadow Distance</td>
+<td><strong>URP Asset</strong> &gt; <strong>Shadows</strong> &gt; <strong>Max Distance</strong></td>
+</tr>
+<tr>
+<td>Shadow Near Plane Offset</td>
+<td>No equivalent setting, because URP's shadow system doesn't use this property.</td>
+</tr>
+<tr>
+<td>Shadow Cascades</td>
+<td><strong>URP Asset</strong> &gt; <strong>Shadows</strong> &gt; <strong>Cascade Count</strong></td>
+</tr>
+<tr>
+<td>Cascade Splits</td>
+<td>Shadow Cascade Splits are now controlled by a dynamic set of properties based on the Cascade Count. The URP Asset displays a visual representation of the Cascade Splits below the Split values as a bar with multiple segments, with each segment representing the size of a given split.<br><br>You can control the size of each Shadow Cascade Split with the following properties:<br><br><strong>URP Asset</strong> &gt; <strong>Shadows</strong> &gt; <strong>Cascade Count</strong> &gt; <strong>Split 1</strong>, <strong>Split 2</strong>, <strong>Split 3</strong>, and <strong>Last Border</strong></td>
+</tr>
+<tr>
+<td><strong>Async Asset Upload</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>Time Slice</td>
+<td><strong>Project Settings</strong> &gt; <strong>Quality</strong> &gt; <strong>Async Asset Upload</strong> &gt; <strong>Time Slice</strong></td>
+</tr>
+<tr>
+<td>Buffer Size</td>
+<td><strong>Project Settings</strong> &gt; <strong>Quality</strong> &gt; <strong>Async Asset Upload</strong> &gt; <strong>Buffer Size</strong></td>
+</tr>
+<tr>
+<td>Persistent Buffer</td>
+<td><strong>Project Settings</strong> &gt; <strong>Quality</strong> &gt; <strong>Async Asset Upload</strong> &gt; <strong>Persistent Buffer</strong></td>
+</tr>
+<tr>
+<td><strong>Level of Detail</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>LOD Bias</td>
+<td><strong>Project Settings</strong> &gt; <strong>Quality</strong> &gt; <strong>Level of Detail</strong> &gt; <strong>LOD Bias</strong></td>
+</tr>
+<tr>
+<td>Maximum LOD level</td>
+<td><strong>Project Settings</strong> &gt; <strong>Quality</strong> &gt; <strong>Level of Detail</strong> &gt; <strong>Maximum LOD Level</strong></td>
+</tr>
+<tr>
+<td>LOD Cross Fade</td>
+<td><strong>URP Asset</strong> &gt; <strong>Quality</strong> &gt; <strong>LOD Cross Fade</strong><br><br><strong>Note</strong>: URP offers two options for LOD Cross Fade: Bayer and Blue Noise. These are both different to Built-In's use of Dither.</td>
+</tr>
+<tr>
+<td><strong>Meshes</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>Skin Weights</td>
+<td><strong>Project Settings</strong> &gt; <strong>Quality</strong> &gt; <strong>Meshes</strong> &gt; <strong>Skin Weights</strong></td>
+</tr>
+</tbody>
+</table>
+<h2 id="additional-resources">Additional resources</h2>
+<ul>
+<li><a href="quality-presets.html">URP Quality Presets</a></li>
+<li><a href="../universalrp-asset.html">URP Asset</a></li>
+<li><a href="../Shadows-in-URP.html">Shadows in URP</a></li>
+</ul>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/0xVector/mmo-rpg-unity/blob/master/Library/PackageCache/com.unity.render-pipelines.universal@14.0.11/Documentation~/birp-onboarding/quality-settings-location.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

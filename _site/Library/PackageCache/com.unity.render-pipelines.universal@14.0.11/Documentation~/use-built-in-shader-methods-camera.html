@@ -1,0 +1,209 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Use the camera in a custom URP shader | mmo-rpg-unity </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Use the camera in a custom URP shader | mmo-rpg-unity ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/0xVector/mmo-rpg-unity/blob/master/Library/PackageCache/com.unity.render-pipelines.universal@14.0.11/Documentation~/use-built-in-shader-methods-camera.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="mmo-rpg-unity">
+            mmo-rpg-unity
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="use-the-camera-in-a-custom-urp-shader">Use the camera in a custom URP shader</h1>
+
+<p>To use the camera in a custom Universal Render Pipeline (URP) shader, follow these steps:</p>
+<ol>
+<li>Add <code>#include &quot;Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl&quot;</code> inside the <code>HLSLPROGRAM</code> in your shader file. The <code>Core.hlsl</code> file imports the <code>ShaderVariablesFunction.hlsl</code> file.</li>
+<li>Use one of the following methods from the <code>ShaderVariablesFunction.hlsl</code> file.</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th><strong>Method</strong></th>
+<th><strong>Syntax</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>GetCameraPositionWS</code></td>
+<td><code>float3 GetCameraPositionWS()</code></td>
+<td>Returns the world space position of the camera.</td>
+</tr>
+<tr>
+<td><code>GetScaledScreenParams</code></td>
+<td><code>float4 GetScaledScreenParams()</code></td>
+<td>Returns the width and height of the screen in pixels.</td>
+</tr>
+<tr>
+<td><code>GetViewForwardDir</code></td>
+<td><code>float3 GetViewForwardDir()</code></td>
+<td>Returns the forward direction of the view in world space.</td>
+</tr>
+<tr>
+<td><code>IsPerspectiveProjection</code></td>
+<td><code>bool IsPerspectiveProjection()</code></td>
+<td>Returns <code>true</code> if the camera projection is set to perspective.</td>
+</tr>
+<tr>
+<td><code>LinearDepthToEyeDepth</code></td>
+<td><code>half LinearDepthToEyeDepth(half linearDepth)</code></td>
+<td>Converts a linear depth buffer value to view depth. Refer to <a href="https://docs.unity3d.com/Manual/SL-CameraDepthTexture.html">Cameras and depth textures</a> for more information.</td>
+</tr>
+<tr>
+<td><code>TransformScreenUV</code></td>
+<td><code>void TransformScreenUV(inout float2 screenSpaceUV)</code></td>
+<td>Flips the y coordinate of the screen space position, if Unity uses an upside-down coordinate space. You can also input both a <code>uv</code>, and the screen height as a <code>float</code>, so the method outputs the position scaled to the screen size in pixels.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="example">Example</h2>
+<p>The following URP shader draws object surfaces with colors that represent the direction from the surface to the camera.</p>
+<pre><code class="lang-hlsl">Shader &quot;Custom/DirectionToCamera&quot;
+{
+    SubShader
+    {
+        Tags { &quot;RenderType&quot; = &quot;Opaque&quot; &quot;RenderPipeline&quot; = &quot;UniversalPipeline&quot; }
+
+        Pass
+        {
+            HLSLPROGRAM
+
+            #pragma vertex vert
+            #pragma fragment frag
+
+            #include &quot;Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl&quot;
+
+            struct Attributes
+            {
+                float4 positionOS : POSITION;
+                float2 uv: TEXCOORD0;
+            };
+
+            struct Varyings
+            {
+                float4 positionCS  : SV_POSITION;
+                float2 uv: TEXCOORD0;
+                float3 viewDirection : TEXCOORD2;
+            };
+
+            Varyings vert(Attributes IN)
+            {
+                Varyings OUT;
+
+                // Get the positions of the vertex in different coordinate spaces
+                VertexPositionInputs positions = GetVertexPositionInputs(IN.positionOS);
+                OUT.positionCS = positions.positionCS;
+
+                // Get the direction from the vertex to the camera, in world space
+                OUT.viewDirection = GetCameraPositionWS() - positions.positionWS.xyz;
+
+                return OUT;
+            }
+
+            half4 frag(Varyings IN) : SV_Target
+            {
+                // Set the fragment color to the direction vector
+                return float4(IN.viewDirection, 1);
+            }
+            ENDHLSL
+        }
+    }
+}
+</code></pre>
+<h2 id="additional-resources">Additional resources</h2>
+<ul>
+<li><a href="cameras/camera-differences-in-urp.html">Cameras in URP</a></li>
+<li><a href="writing-custom-shaders-urp.html">Writing custom shaders</a></li>
+<li><a href="urp-shaders/birp-urp-custom-shader-upgrade-guide.html">Upgrade custom shaders for URP compatibility</a></li>
+<li><a href="https://docs.unity3d.com/Manual/SL-ShaderPrograms.html">HLSL in Unity</a></li>
+</ul>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/0xVector/mmo-rpg-unity/blob/master/Library/PackageCache/com.unity.render-pipelines.universal@14.0.11/Documentation~/use-built-in-shader-methods-camera.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

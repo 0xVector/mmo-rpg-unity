@@ -1,0 +1,30 @@
+### YamlMime:ManagedReference
+items:
+- uid: Interfaces
+  commentId: N:Interfaces
+  id: Interfaces
+  children:
+  - Interfaces.ICanAttack
+  langs:
+  - csharp
+  - vb
+  name: Interfaces
+  nameWithType: Interfaces
+  fullName: Interfaces
+  type: Namespace
+  assemblies:
+  - Assembly-CSharp
+references:
+- uid: Interfaces.ICanAttack
+  commentId: T:Interfaces.ICanAttack
+  parent: Interfaces
+  href: Interfaces.ICanAttack.html
+  name: ICanAttack
+  nameWithType: ICanAttack
+  fullName: Interfaces.ICanAttack
+- uid: Interfaces
+  commentId: N:Interfaces
+  href: Interfaces.html
+  name: Interfaces
+  nameWithType: Interfaces
+  fullName: Interfaces

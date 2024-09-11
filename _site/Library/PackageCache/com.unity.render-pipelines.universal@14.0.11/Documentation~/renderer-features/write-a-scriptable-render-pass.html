@@ -1,0 +1,361 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Write a Scriptable Render Pass | mmo-rpg-unity </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Write a Scriptable Render Pass | mmo-rpg-unity ">
+      
+      
+      <link rel="icon" href="../../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/0xVector/mmo-rpg-unity/blob/master/Library/PackageCache/com.unity.render-pipelines.universal@14.0.11/Documentation~/renderer-features/write-a-scriptable-render-pass.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../../index.html">
+            <img id="logo" class="svg" src="../../../../../logo.svg" alt="mmo-rpg-unity">
+            mmo-rpg-unity
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="write-a-scriptable-render-pass">Write a Scriptable Render Pass</h1>
+
+<p>The following example is a <code>ScriptableRenderPass</code> instance that performs the following steps:</p>
+<ol>
+<li>Creates a temporary render texture using the <code>RenderTextureDescriptor</code> API.</li>
+<li>Applies two passes of the <a href="#example-shader">custom shader</a> to the camera output using the <code>RTHandle</code> and the <code>Blit</code> API.</li>
+</ol>
+<p>After you write a Scriptable Render Pass, you can inject the pass using one of the following methods:</p>
+<ul>
+<li><a href="../customize/inject-render-pass-via-script.html">Use the <code>RenderPipelineManager</code> API</a></li>
+<li><a href="scriptable-renderer-features/inject-a-pass-using-a-scriptable-renderer-feature.html">Use a Scriptable Renderer Feature</a></li>
+</ul>
+<h2 id="create-the-scriptable-render-pass">Create the scriptable Render Pass</h2>
+<p>This section demonstrates how to create a scriptable Render Pass.</p>
+<ol>
+<li><p>Create a new C# script and name it <code>RedTintRenderPass.cs</code>.</p>
+</li>
+<li><p>In the script, remove the code that Unity inserted in the <code>RedTintRenderPass</code> class. Add the following <code>using</code> directive:</p>
+<pre><code class="lang-C#">using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
+</code></pre>
+</li>
+<li><p>Create the <code>RedTintRenderPass</code> class that inherits from the <strong>ScriptableRenderPass</strong> class.</p>
+<pre><code class="lang-C#">public class RedTintRenderPass : ScriptableRenderPass
+</code></pre>
+</li>
+<li><p>Add the <code>Execute</code> method to the class. Unity calls this method every frame, once for each camera. This method lets you implement the rendering logic of the scriptable Render Pass.</p>
+<pre><code class="lang-C#">public override void Execute(ScriptableRenderContext context, ref RenderingData renderingData)
+{ }
+</code></pre>
+</li>
+</ol>
+<p>Below is the complete code for the RedTintRenderPass.cs file from this section.</p>
+<pre><code class="lang-C#">using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
+
+public class RedTintRenderPass : ScriptableRenderPass
+{
+    public override void Execute(ScriptableRenderContext context,
+        ref RenderingData renderingData)
+    {
+        
+    }
+}
+</code></pre>
+<h2 id="implement-the-settings-for-the-custom-render-pass">Implement the settings for the custom render pass</h2>
+<ol>
+<li><p>Add a field for the Material, and the constructor that uses the field.</p>
+<pre><code class="lang-C#">private Material material;
+
+public RedTintRenderPass(Material material)
+{
+    this.material = material;
+}
+</code></pre>
+</li>
+<li><p>Add the <code>RenderTextureDescriptor</code> field and initialize it in the constructor:</p>
+<pre><code class="lang-C#">using UnityEngine;
+
+private RenderTextureDescriptor textureDescriptor;
+
+public RedTintRenderPass(Material material)
+{
+    this.material = material;
+
+    textureDescriptor = new RenderTextureDescriptor(Screen.width,
+        Screen.height, RenderTextureFormat.Default, 0);
+}
+</code></pre>
+</li>
+<li><p>Declare the <code>RTHandle</code> field to store the reference to the temporary red tint texture.</p>
+<pre><code class="lang-C#">private RTHandle textureHandle;
+</code></pre>
+</li>
+<li><p>Implement the <code>Configure</code> method. Unity calls this method before executing the render pass.</p>
+<pre><code class="lang-C#">public override void Configure(CommandBuffer cmd,
+    RenderTextureDescriptor cameraTextureDescriptor)
+{
+    //Set the red tint texture size to be the same as the camera target size.
+    textureDescriptor.width = cameraTextureDescriptor.width;
+    textureDescriptor.height = cameraTextureDescriptor.height;
+
+    //Check if the descriptor has changed, and reallocate the RTHandle if necessary.
+    RenderingUtils.ReAllocateIfNeeded(ref textureHandle, textureDescriptor);
+}
+</code></pre>
+</li>
+<li><p>Use the Blit method to apply the two passes from the custom shader to the camera output.</p>
+<pre><code class="lang-C#">public override void Execute(ScriptableRenderContext context,
+    ref RenderingData renderingData)
+{
+    //Get a CommandBuffer from pool.
+    CommandBuffer cmd = CommandBufferPool.Get();
+
+    RTHandle cameraTargetHandle =
+        renderingData.cameraData.renderer.cameraColorTargetHandle;
+
+    // Blit from the camera target to the temporary render texture,
+    // using the first shader pass.
+    Blit(cmd, cameraTargetHandle, textureHandle, material, 0);
+    // Blit from the temporary render texture to the camera target,
+    // using the second shader pass.
+    Blit(cmd, textureHandle, cameraTargetHandle, material, 1);
+
+    //Execute the command buffer and release it back to the pool.
+    context.ExecuteCommandBuffer(cmd);
+    CommandBufferPool.Release(cmd);
+}
+</code></pre>
+</li>
+<li><p>Implement the <code>Dispose</code> method that destroys the Material and the temporary render texture after the render pass execution.</p>
+<pre><code class="lang-C#">public void Dispose()
+{
+    #if UNITY_EDITOR
+            if (EditorApplication.isPlaying)
+            {
+                Object.Destroy(material);
+            }
+            else
+            {
+                Object.DestroyImmediate(material);
+            }
+    #else
+            Object.Destroy(material);
+    #endif
+
+    if (textureHandle != null) textureHandle.Release();
+}
+</code></pre>
+</li>
+</ol>
+<h3 id="code-render-pass">Custom render pass code</h3>
+<p>Below is the complete code for the custom Render Pass script.</p>
+<pre><code class="lang-C#">using UnityEditor;
+using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
+
+public class RedTintRenderPass : ScriptableRenderPass
+{
+    private Material material;
+
+    private RenderTextureDescriptor textureDescriptor;
+    private RTHandle textureHandle;
+
+    public RedTintRenderPass(Material material)
+    {
+        this.material = material;
+
+        textureDescriptor = new RenderTextureDescriptor(Screen.width,
+            Screen.height, RenderTextureFormat.Default, 0);
+    }
+
+    public override void Configure(CommandBuffer cmd,
+        RenderTextureDescriptor cameraTextureDescriptor)
+    {
+        // Set the texture size to be the same as the camera target size.
+        textureDescriptor.width = cameraTextureDescriptor.width;
+        textureDescriptor.height = cameraTextureDescriptor.height;
+
+        // Check if the descriptor has changed, and reallocate the RTHandle if necessary
+        RenderingUtils.ReAllocateIfNeeded(ref textureHandle, textureDescriptor);
+    }
+
+    public override void Execute(ScriptableRenderContext context,
+        ref RenderingData renderingData)
+    {
+        //Get a CommandBuffer from pool.
+        CommandBuffer cmd = CommandBufferPool.Get();
+
+        RTHandle cameraTargetHandle =
+            renderingData.cameraData.renderer.cameraColorTargetHandle;
+
+        // Blit from the camera target to the temporary render texture,
+        // using the first shader pass.
+        Blit(cmd, cameraTargetHandle, textureHandle, material, 0);
+        // Blit from the temporary render texture to the camera target,
+        // using the second shader pass.
+        Blit(cmd, textureHandle, cameraTargetHandle, material, 1);
+
+        //Execute the command buffer and release it back to the pool.
+        context.ExecuteCommandBuffer(cmd);
+        CommandBufferPool.Release(cmd);
+    }
+
+    public void Dispose()
+    {
+    #if UNITY_EDITOR
+        if (EditorApplication.isPlaying)
+        {
+            Object.Destroy(material);
+        }
+        else
+        {
+            Object.DestroyImmediate(material);
+        }
+    #else
+            Object.Destroy(material);
+    #endif
+
+        if (textureHandle != null) textureHandle.Release();
+    }
+}
+</code></pre>
+<h2 id="example-shader">The custom shader for the red tint effect</h2>
+<p>This section contains the code for the custom shader that implements the red tint effect.</p>
+<pre><code class="lang-c++">Shader &quot;CustomEffects/RedTint&quot;
+{
+    HLSLINCLUDE
+    
+        #include &quot;Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl&quot;
+        // The Blit.hlsl file provides the vertex shader (Vert),
+        // the input structure (Attributes), and the output structure (Varyings)
+        #include &quot;Packages/com.unity.render-pipelines.core/Runtime/Utilities/Blit.hlsl&quot;
+
+    
+        float4 RedTint (Varyings input) : SV_Target
+        {
+            float3 color = SAMPLE_TEXTURE2D(_BlitTexture, sampler_LinearClamp, input.texcoord).rgb;
+            return float4(1, color.gb, 1);
+        }
+
+        float4 SimpleBlit (Varyings input) : SV_Target
+        {
+            float3 color = SAMPLE_TEXTURE2D(_BlitTexture, sampler_LinearClamp, input.texcoord).rgb;
+            return float4(color.rgb, 1);
+        }
+    
+    ENDHLSL
+    
+    SubShader
+    {
+        Tags { &quot;RenderType&quot;=&quot;Opaque&quot; &quot;RenderPipeline&quot; = &quot;UniversalPipeline&quot;}
+        LOD 100
+        ZTest Always ZWrite Off Cull Off
+        Pass
+        {
+            Name &quot;RedTint&quot;
+
+            HLSLPROGRAM
+            
+            #pragma vertex Vert
+            #pragma fragment RedTint
+            
+            ENDHLSL
+        }
+        
+        Pass
+        {
+            Name &quot;SimpleBlit&quot;
+
+            HLSLPROGRAM
+            
+            #pragma vertex Vert
+            #pragma fragment SimpleBlit
+            
+            ENDHLSL
+        }
+    }
+}
+</code></pre>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/0xVector/mmo-rpg-unity/blob/master/Library/PackageCache/com.unity.render-pipelines.universal@14.0.11/Documentation~/renderer-features/write-a-scriptable-render-pass.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

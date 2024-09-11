@@ -1,0 +1,426 @@
+### YamlMime:ManagedReference
+items:
+- uid: WebSockets.OutMessageData.UpdateData
+  commentId: T:WebSockets.OutMessageData.UpdateData
+  id: UpdateData
+  parent: WebSockets.OutMessageData
+  children:
+  - WebSockets.OutMessageData.UpdateData.dir
+  - WebSockets.OutMessageData.UpdateData.isDashing
+  - WebSockets.OutMessageData.UpdateData.isMoving
+  langs:
+  - csharp
+  - vb
+  name: UpdateData
+  nameWithType: UpdateData
+  fullName: WebSockets.OutMessageData.UpdateData
+  type: Class
+  source:
+    remote:
+      path: Assets/Scripts/WebSockets/OutMessageData.cs
+      branch: master
+      repo: https://github.com/0xVector/mmo-rpg-unity.git
+    id: UpdateData
+    path: Assets/Scripts/WebSockets/OutMessageData.cs
+    startLine: 58
+  assemblies:
+  - Assembly-CSharp
+  namespace: WebSockets.OutMessageData
+  summary: >-
+    Represents the player update message data.
+
+    It is used to report the current state of the player to the server.
+  example: []
+  syntax:
+    content: 'public sealed class UpdateData : MessageData'
+    content.vb: Public NotInheritable Class UpdateData Inherits MessageData
+  inheritance:
+  - System.Object
+  - WebSockets.OutMessageData.MessageData
+  inheritedMembers:
+  - WebSockets.OutMessageData.MessageData.id
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+- uid: WebSockets.OutMessageData.UpdateData.dir
+  commentId: P:WebSockets.OutMessageData.UpdateData.dir
+  id: dir
+  parent: WebSockets.OutMessageData.UpdateData
+  langs:
+  - csharp
+  - vb
+  name: dir
+  nameWithType: UpdateData.dir
+  fullName: WebSockets.OutMessageData.UpdateData.dir
+  type: Property
+  source:
+    remote:
+      path: Assets/Scripts/WebSockets/OutMessageData.cs
+      branch: master
+      repo: https://github.com/0xVector/mmo-rpg-unity.git
+    id: dir
+    path: Assets/Scripts/WebSockets/OutMessageData.cs
+    startLine: 60
+  assemblies:
+  - Assembly-CSharp
+  namespace: WebSockets.OutMessageData
+  syntax:
+    content: public Direction dir { get; set; }
+    parameters: []
+    return:
+      type: Entities.Direction
+    content.vb: Public Property dir As Direction
+  overload: WebSockets.OutMessageData.UpdateData.dir*
+- uid: WebSockets.OutMessageData.UpdateData.isMoving
+  commentId: P:WebSockets.OutMessageData.UpdateData.isMoving
+  id: isMoving
+  parent: WebSockets.OutMessageData.UpdateData
+  langs:
+  - csharp
+  - vb
+  name: isMoving
+  nameWithType: UpdateData.isMoving
+  fullName: WebSockets.OutMessageData.UpdateData.isMoving
+  type: Property
+  source:
+    remote:
+      path: Assets/Scripts/WebSockets/OutMessageData.cs
+      branch: master
+      repo: https://github.com/0xVector/mmo-rpg-unity.git
+    id: isMoving
+    path: Assets/Scripts/WebSockets/OutMessageData.cs
+    startLine: 61
+  assemblies:
+  - Assembly-CSharp
+  namespace: WebSockets.OutMessageData
+  syntax:
+    content: public bool isMoving { get; set; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public Property isMoving As Boolean
+  overload: WebSockets.OutMessageData.UpdateData.isMoving*
+- uid: WebSockets.OutMessageData.UpdateData.isDashing
+  commentId: P:WebSockets.OutMessageData.UpdateData.isDashing
+  id: isDashing
+  parent: WebSockets.OutMessageData.UpdateData
+  langs:
+  - csharp
+  - vb
+  name: isDashing
+  nameWithType: UpdateData.isDashing
+  fullName: WebSockets.OutMessageData.UpdateData.isDashing
+  type: Property
+  source:
+    remote:
+      path: Assets/Scripts/WebSockets/OutMessageData.cs
+      branch: master
+      repo: https://github.com/0xVector/mmo-rpg-unity.git
+    id: isDashing
+    path: Assets/Scripts/WebSockets/OutMessageData.cs
+    startLine: 62
+  assemblies:
+  - Assembly-CSharp
+  namespace: WebSockets.OutMessageData
+  syntax:
+    content: public bool isDashing { get; set; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public Property isDashing As Boolean
+  overload: WebSockets.OutMessageData.UpdateData.isDashing*
+references:
+- uid: WebSockets.OutMessageData
+  commentId: N:WebSockets.OutMessageData
+  href: WebSockets.html
+  name: WebSockets.OutMessageData
+  nameWithType: WebSockets.OutMessageData
+  fullName: WebSockets.OutMessageData
+  spec.csharp:
+  - uid: WebSockets
+    name: WebSockets
+    href: WebSockets.html
+  - name: .
+  - uid: WebSockets.OutMessageData
+    name: OutMessageData
+    href: WebSockets.OutMessageData.html
+  spec.vb:
+  - uid: WebSockets
+    name: WebSockets
+    href: WebSockets.html
+  - name: .
+  - uid: WebSockets.OutMessageData
+    name: OutMessageData
+    href: WebSockets.OutMessageData.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: WebSockets.OutMessageData.MessageData
+  commentId: T:WebSockets.OutMessageData.MessageData
+  parent: WebSockets.OutMessageData
+  href: WebSockets.OutMessageData.MessageData.html
+  name: MessageData
+  nameWithType: MessageData
+  fullName: WebSockets.OutMessageData.MessageData
+- uid: WebSockets.OutMessageData.MessageData.id
+  commentId: P:WebSockets.OutMessageData.MessageData.id
+  parent: WebSockets.OutMessageData.MessageData
+  href: WebSockets.OutMessageData.MessageData.html#WebSockets_OutMessageData_MessageData_id
+  name: id
+  nameWithType: MessageData.id
+  fullName: WebSockets.OutMessageData.MessageData.id
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: WebSockets.OutMessageData.UpdateData.dir*
+  commentId: Overload:WebSockets.OutMessageData.UpdateData.dir
+  href: WebSockets.OutMessageData.UpdateData.html#WebSockets_OutMessageData_UpdateData_dir
+  name: dir
+  nameWithType: UpdateData.dir
+  fullName: WebSockets.OutMessageData.UpdateData.dir
+- uid: Entities.Direction
+  commentId: T:Entities.Direction
+  parent: Entities
+  href: Entities.Direction.html
+  name: Direction
+  nameWithType: Direction
+  fullName: Entities.Direction
+- uid: Entities
+  commentId: N:Entities
+  href: Entities.html
+  name: Entities
+  nameWithType: Entities
+  fullName: Entities
+- uid: WebSockets.OutMessageData.UpdateData.isMoving*
+  commentId: Overload:WebSockets.OutMessageData.UpdateData.isMoving
+  href: WebSockets.OutMessageData.UpdateData.html#WebSockets_OutMessageData_UpdateData_isMoving
+  name: isMoving
+  nameWithType: UpdateData.isMoving
+  fullName: WebSockets.OutMessageData.UpdateData.isMoving
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: WebSockets.OutMessageData.UpdateData.isDashing*
+  commentId: Overload:WebSockets.OutMessageData.UpdateData.isDashing
+  href: WebSockets.OutMessageData.UpdateData.html#WebSockets_OutMessageData_UpdateData_isDashing
+  name: isDashing
+  nameWithType: UpdateData.isDashing
+  fullName: WebSockets.OutMessageData.UpdateData.isDashing
