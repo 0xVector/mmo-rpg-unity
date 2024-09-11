@@ -52,11 +52,13 @@ public class PlayerAttack : MonoBehaviour
     void OnEnable()
     {
         player.onAttackHit += ProcessAttack;
+        gameObject.GetComponent<Health>().onDeath += () => enabled = false;
     }
 
     void OnDisable()
     {
         player.onAttackHit -= ProcessAttack;
+        gameObject.GetComponent<Health>().onDeath += () => enabled = false;
     }
 
     void Update()
