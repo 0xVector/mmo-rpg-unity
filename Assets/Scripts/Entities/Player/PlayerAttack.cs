@@ -88,6 +88,7 @@ public class PlayerAttack : MonoBehaviour
         {
             Entity entity = hit.GetComponent<Entity>();
             if (entity == null) continue;  // Ignore non-entities
+            if (entity == player) continue;  // Ignore self
             onHit?.Invoke(entity);
         }
         Debug.Log($"Attack hits: {hits.Length}");
