@@ -6,11 +6,19 @@ The unity client is composed of multiple parts.
 
 ### Network
 
+#### Overview
+
 The network communication is a responsibility of the classes in the `WebSockets` namespace. The low-level connection and raw message sending and receiving related functionality is managed by the `WebSocketManager` class.  
 The `GameManager` class provides event handlers for incoming messages and is responsible for processing them and updating the game state accordingly.  
 The shape of the incoming and outgoing messages is defined by the `InMessageData` and `OutMessageData` classes.
 
 An important part of the network stack is the `PlayerUpdater` class. It is responsible for sending the current player state and any new actions to the server via the `WebSocketManager`.
+
+#### Inbound message flow
+
+An inbound message is received by the `WebSocketManager`. It is deserialized (from JSON) into a `WebSocketMessage` object that exposes the two key high-level fields: `event` and `data`. The string `event` field is used to determine which event handler from the `GameManager` is responsible for processing this event message. The `data` field has to be later deserialized into a specific message type based on the `event` field. For now, it is kept as a *dynamic* object and is upon calling the appropriate event handler, it is serialized back to a JSON string. This is a workaround to the dynamic nature of the incoming messages, which can have different shapes based on the `event` field and is planned to be replaced with a more robust solution in the future.
+
+The `GameManager` event handler then deserializes the `data` field into a specific message type and processes it accordingly. These message types are defined by dataclasses in the `WebSockets.InMessageData` namespace.
 
 ### Game
 
