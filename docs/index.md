@@ -20,6 +20,10 @@ An inbound message is received by the `WebSocketManager`. It is deserialized (fr
 
 The `GameManager` event handler then deserializes the `data` field into a specific message type and processes it accordingly. These message types are defined by dataclasses in the `WebSockets.InMessageData` namespace.
 
+#### Outbound message flow
+
+The outbound messages originate in the `PlayerUpdater` class. While it is attached directly to the player GameObject, it is still fairly decoupled from it. It utilizes C# *events* and *Actions* to provide a way for the individual functional components of the player to signal new updates that need to be sent to the server. It sends them directly via the `WebSocketManager` to the server. It uses a similar approach to the inbound messages, where the types of messages are defined by dataclasses in the `WebSockets.OutMessageData` namespace, and these are, along with the `event` field, serialized into a JSON string and sent over the WebSocket connection.
+
 ### Game
 
 #### Prefabs
