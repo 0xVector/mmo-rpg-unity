@@ -1,0 +1,61 @@
+### YamlMime:ManagedReference
+items:
+- uid: Entities.Player
+  commentId: N:Entities.Player
+  id: Entities.Player
+  children:
+  - Entities.Player.Player
+  - Entities.Player.PlayerAttack
+  - Entities.Player.PlayerUpdater
+  langs:
+  - csharp
+  - vb
+  name: Entities.Player
+  nameWithType: Entities.Player
+  fullName: Entities.Player
+  type: Namespace
+  assemblies:
+  - Assembly-CSharp
+references:
+- uid: Entities.Player.PlayerAttack
+  commentId: T:Entities.Player.PlayerAttack
+  parent: Entities.Player
+  href: Entities.Player.PlayerAttack.html
+  name: PlayerAttack
+  nameWithType: PlayerAttack
+  fullName: Entities.Player.PlayerAttack
+- uid: Entities.Player.PlayerUpdater
+  commentId: T:Entities.Player.PlayerUpdater
+  href: Entities.Player.PlayerUpdater.html
+  name: PlayerUpdater
+  nameWithType: PlayerUpdater
+  fullName: Entities.Player.PlayerUpdater
+- uid: Entities.Player.Player
+  commentId: T:Entities.Player.Player
+  parent: Entities.Player
+  href: Entities.Player.Player.html
+  name: Player
+  nameWithType: Player
+  fullName: Entities.Player.Player
+- uid: Entities.Player
+  commentId: N:Entities.Player
+  href: Entities.html
+  name: Entities.Player
+  nameWithType: Entities.Player
+  fullName: Entities.Player
+  spec.csharp:
+  - uid: Entities
+    name: Entities
+    href: Entities.html
+  - name: .
+  - uid: Entities.Player
+    name: Player
+    href: Entities.Player.html
+  spec.vb:
+  - uid: Entities
+    name: Entities
+    href: Entities.html
+  - name: .
+  - uid: Entities.Player
+    name: Player
+    href: Entities.Player.html

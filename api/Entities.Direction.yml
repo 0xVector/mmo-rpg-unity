@@ -1,0 +1,152 @@
+### YamlMime:ManagedReference
+items:
+- uid: Entities.Direction
+  commentId: T:Entities.Direction
+  id: Direction
+  parent: Entities
+  children:
+  - Entities.Direction.Down
+  - Entities.Direction.Left
+  - Entities.Direction.Right
+  - Entities.Direction.Up
+  langs:
+  - csharp
+  - vb
+  name: Direction
+  nameWithType: Direction
+  fullName: Entities.Direction
+  type: Enum
+  source:
+    remote:
+      path: Assets/Scripts/Entities/Entity.cs
+      branch: master
+      repo: https://github.com/0xVector/mmo-rpg-unity.git
+    id: Direction
+    path: Assets/Scripts/Entities/Entity.cs
+    startLine: 192
+  assemblies:
+  - Assembly-CSharp
+  namespace: Entities
+  summary: Represents the direction of an object.
+  example: []
+  syntax:
+    content: public enum Direction
+    content.vb: Public Enum Direction
+- uid: Entities.Direction.Down
+  commentId: F:Entities.Direction.Down
+  id: Down
+  parent: Entities.Direction
+  langs:
+  - csharp
+  - vb
+  name: Down
+  nameWithType: Direction.Down
+  fullName: Entities.Direction.Down
+  type: Field
+  source:
+    remote:
+      path: Assets/Scripts/Entities/Entity.cs
+      branch: master
+      repo: https://github.com/0xVector/mmo-rpg-unity.git
+    id: Down
+    path: Assets/Scripts/Entities/Entity.cs
+    startLine: 194
+  assemblies:
+  - Assembly-CSharp
+  namespace: Entities
+  syntax:
+    content: Down = 0
+    return:
+      type: Entities.Direction
+- uid: Entities.Direction.Up
+  commentId: F:Entities.Direction.Up
+  id: Up
+  parent: Entities.Direction
+  langs:
+  - csharp
+  - vb
+  name: Up
+  nameWithType: Direction.Up
+  fullName: Entities.Direction.Up
+  type: Field
+  source:
+    remote:
+      path: Assets/Scripts/Entities/Entity.cs
+      branch: master
+      repo: https://github.com/0xVector/mmo-rpg-unity.git
+    id: Up
+    path: Assets/Scripts/Entities/Entity.cs
+    startLine: 195
+  assemblies:
+  - Assembly-CSharp
+  namespace: Entities
+  syntax:
+    content: Up = 1
+    return:
+      type: Entities.Direction
+- uid: Entities.Direction.Left
+  commentId: F:Entities.Direction.Left
+  id: Left
+  parent: Entities.Direction
+  langs:
+  - csharp
+  - vb
+  name: Left
+  nameWithType: Direction.Left
+  fullName: Entities.Direction.Left
+  type: Field
+  source:
+    remote:
+      path: Assets/Scripts/Entities/Entity.cs
+      branch: master
+      repo: https://github.com/0xVector/mmo-rpg-unity.git
+    id: Left
+    path: Assets/Scripts/Entities/Entity.cs
+    startLine: 196
+  assemblies:
+  - Assembly-CSharp
+  namespace: Entities
+  syntax:
+    content: Left = 2
+    return:
+      type: Entities.Direction
+- uid: Entities.Direction.Right
+  commentId: F:Entities.Direction.Right
+  id: Right
+  parent: Entities.Direction
+  langs:
+  - csharp
+  - vb
+  name: Right
+  nameWithType: Direction.Right
+  fullName: Entities.Direction.Right
+  type: Field
+  source:
+    remote:
+      path: Assets/Scripts/Entities/Entity.cs
+      branch: master
+      repo: https://github.com/0xVector/mmo-rpg-unity.git
+    id: Right
+    path: Assets/Scripts/Entities/Entity.cs
+    startLine: 197
+  assemblies:
+  - Assembly-CSharp
+  namespace: Entities
+  syntax:
+    content: Right = 3
+    return:
+      type: Entities.Direction
+references:
+- uid: Entities
+  commentId: N:Entities
+  href: Entities.html
+  name: Entities
+  nameWithType: Entities
+  fullName: Entities
+- uid: Entities.Direction
+  commentId: T:Entities.Direction
+  parent: Entities
+  href: Entities.Direction.html
+  name: Direction
+  nameWithType: Direction
+  fullName: Entities.Direction
