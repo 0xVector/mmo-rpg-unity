@@ -2,6 +2,8 @@
 
 #### An Unity client for the **[mmo-rpg](https://github.com/0xVector/mmo-rpg)** game server.
 
+[*See the full docs*](0xvector.me/mmo-rpg-unity/)
+
 ## Features
 
 ### Technical
